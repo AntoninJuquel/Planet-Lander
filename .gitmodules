@@ -1,0 +1,3 @@
+[submodule "Assets/Scripts/Managers"]
+	path = Assets/Scripts/Managers
+	url = https://github.com/AntoninJuquel/Managers
