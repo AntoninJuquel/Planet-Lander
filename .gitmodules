@@ -1,3 +1,6 @@
 [submodule "Assets/Scripts/Managers"]
 	path = Assets/Scripts/Managers
 	url = https://github.com/AntoninJuquel/Managers
+[submodule "Assets/Scripts/GameUtilities"]
+	path = Assets/Scripts/GameUtilities
+	url = https://github.com/AntoninJuquel/GameUtilities
