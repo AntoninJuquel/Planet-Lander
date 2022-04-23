@@ -22,12 +22,12 @@ MonoBehaviour:
   criticalChance: 0
   criticalDamage: 0
   fireRate: 500
-  burstRate: 0
-  reloadTime: 0
+  burstRate: 1000
+  reloadTime: 0.12
   chargeTime: 0
   switchSpeed: 0
-  magazine: 1
-  capacity: 1
+  magazine: 10
+  capacity: 10
   projectile: {fileID: 11400000, guid: 113b43cc3ed3ee749abfa41885ae2eb6, type: 2}
   projectileSpeed: 50
   projectileRange: 20
