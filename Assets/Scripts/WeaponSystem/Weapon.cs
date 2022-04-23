@@ -7,8 +7,8 @@ namespace WeaponSystem
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] private Transform target;
         [SerializeField] private List<WeaponPreset> weapons;
+        [SerializeField] private ParticleSystem subEmitter;
         private ParticleSystem _ps;
         private int _index;
         private bool _switching;
@@ -129,15 +129,80 @@ namespace WeaponSystem
 
         private void AdjustParticles(FirePoint firePoint)
         {
+            var main = _ps.main;
+            main.startLifetimeMultiplier = CurrentWeapon.projectileRange / CurrentWeapon.projectileSpeed;
+            main.startSpeedMultiplier = CurrentWeapon.projectileSpeed;
+            main.startSizeMultiplier = CurrentWeapon.projectile.size;
+            main.startColor = CurrentWeapon.projectile.color;
+            main.gravityModifierMultiplier = CurrentWeapon.projectile.gravity;
+
             var shape = _ps.shape;
             shape.arc = (1 - CurrentWeapon.accuracy) * 360f;
             shape.position = firePoint.position;
             shape.rotation = Vector3.forward * (90f + (firePoint.angle - shape.arc * .5f));
             shape.radiusThickness = .1f;
 
-            var main = _ps.main;
-            main.startSpeedMultiplier = CurrentWeapon.projectileSpeed;
-            main.startLifetimeMultiplier = CurrentWeapon.projectileRange / CurrentWeapon.projectileSpeed;
+            var textureSheet = _ps.textureSheetAnimation;
+            textureSheet.SetSprite(0, CurrentWeapon.projectile.sprite);
+
+            var colorOverLifetime = _ps.colorOverLifetime;
+            if (CurrentWeapon.projectile.colorOverLifetime.alphaKeys.Length > 0 || CurrentWeapon.projectile.colorOverLifetime.colorKeys.Length > 0)
+            {
+                colorOverLifetime.enabled = true;
+                colorOverLifetime.color = CurrentWeapon.projectile.colorOverLifetime;
+            }
+            else
+            {
+                colorOverLifetime.enabled = false;
+            }
+
+            var subEmitters = _ps.subEmitters;
+            if (CurrentWeapon.projectile.subEmitters.Length > 0)
+            {
+                subEmitters.enabled = true;
+                for (var i = 0; i < CurrentWeapon.projectile.subEmitters.Length; i++)
+                {
+                    var subEmitterStruct = CurrentWeapon.projectile.subEmitters[i];
+                    ParticleSystem subPs;
+                    if (subEmitters.subEmittersCount > i)
+                        subPs = subEmitters.GetSubEmitterSystem(i);
+                    else
+                    {
+                        subEmitters.AddSubEmitter(subEmitter, subEmitterStruct.subEmitterType, subEmitterStruct.subEmitterProperties, 1);
+                        subPs = subEmitters.GetSubEmitterSystem(i);
+                    }
+
+                    var subMain = subPs.main;
+                    //subMain.startLifetimeMultiplier = CurrentWeapon.projectileRange / CurrentWeapon.projectileSpeed;
+                    subMain.startSpeedMultiplier = subEmitterStruct.speed;
+                    subMain.startSizeMultiplier = subEmitterStruct.size;
+                    subMain.startColor = subEmitterStruct.color;
+                    subMain.gravityModifierMultiplier = subEmitterStruct.gravity;
+
+                    var subTextureSheet = subPs.textureSheetAnimation;
+                    subTextureSheet.SetSprite(0, subEmitterStruct.sprite);
+
+                    var subEmission = subPs.emission;
+                    subEmission.rateOverDistanceMultiplier = subEmitterStruct.rateOverDistance;
+                    subEmission.rateOverTimeMultiplier = subEmitterStruct.rateOverTime;
+                    subEmission.SetBurst(0, new ParticleSystem.Burst(0, subEmitterStruct.burstCount));
+
+                    var subColorOverLifetime = subPs.colorOverLifetime;
+                    if (subEmitterStruct.colorOverLifetime.alphaKeys.Length > 0 || subEmitterStruct.colorOverLifetime.colorKeys.Length > 0)
+                    {
+                        subColorOverLifetime.enabled = true;
+                        subColorOverLifetime.color = subEmitterStruct.colorOverLifetime;
+                    }
+                    else
+                    {
+                        subColorOverLifetime.enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                subEmitters.enabled = true;
+            }
         }
 
         public void Shoot()

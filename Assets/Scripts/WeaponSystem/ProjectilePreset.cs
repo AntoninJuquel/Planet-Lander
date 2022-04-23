@@ -5,25 +5,27 @@ namespace WeaponSystem
     [CreateAssetMenu(fileName = "New projectile", menuName = "Weapon System/Projectile", order = 0)]
     public class ProjectilePreset : ScriptableObject
     {
-        [Header("Attack")] public int damage;
-        public float criticalChance;
-        public int criticalDamage;
+        public float size;
+        public Sprite sprite;
+        public Color color;
+        public float gravity;
+        public Gradient colorOverLifetime;
+        public SubEmitter[] subEmitters;
+    }
 
-        [Header("Travel")] public float speed;
-        public float speedMult = 1;
-        public float range;
+    [System.Serializable]
+    public struct SubEmitter
+    {
+        public float rateOverTime, rateOverDistance, burstCount;
 
-        public ProjectilePreset ApplyWeaponModifiers(WeaponPreset weapon)
-        {
-            var instance = Instantiate(this);
-            
-            instance.damage += weapon.damage;
-            instance.criticalChance += weapon.criticalChance;
-            instance.criticalDamage += weapon.criticalDamage;
-            instance.range += weapon.projectileRange;
-            instance.speed = (speed + weapon.projectileSpeed) * speedMult;
+        public float speed;
+        public float size;
+        public Sprite sprite;
+        public Color color;
+        public float gravity;
+        public Gradient colorOverLifetime;
 
-            return instance;
-        }
+        public ParticleSystemSubEmitterProperties subEmitterProperties;
+        public ParticleSystemSubEmitterType subEmitterType;
     }
 }
