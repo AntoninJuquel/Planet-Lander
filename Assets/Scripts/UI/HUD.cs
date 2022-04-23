@@ -2,10 +2,11 @@ using Managers.Event;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Screen = Managers.ScreenNavigator.Screen;
 
 namespace UI
 {
-    public class HUD : MonoBehaviour
+    public class HUD : Screen
     {
         [SerializeField] private TextMeshProUGUI altitude, speed, timer;
         [SerializeField] private Image health, fuel;
@@ -28,6 +29,8 @@ namespace UI
         private void PlayerSpawnHandler(PlayerSpawnEvent e)
         {
             _player = e.Player;
+            health.fillAmount = 1;
+            fuel.fillAmount = 1;
         }
 
         private void EntityDamagedHandler(EntityDamagedEvent e)
