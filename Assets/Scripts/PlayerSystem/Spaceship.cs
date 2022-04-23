@@ -1,9 +1,8 @@
 using System.Collections;
 using Managers.Event;
 using UnityEngine;
-using Event = Managers.Event.Event;
 
-namespace Entities
+namespace PlayerSystem
 {
     public class Spaceship : MonoBehaviour
     {
