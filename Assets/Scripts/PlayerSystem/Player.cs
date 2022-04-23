@@ -8,16 +8,16 @@ namespace PlayerSystem
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField] private Weapon mainWeapon, counterMeasures;
         private Gamepad _input;
         private PlayerSpawnEvent _playerSpawnEvent;
-        private Weapon _weapon;
         private Spaceship _spaceship;
-        
+
         private void Awake()
         {
             _input = Gamepad.current;
             _playerSpawnEvent = new PlayerSpawnEvent(transform);
-            _weapon = GetComponentInChildren<Weapon>();
+            mainWeapon = GetComponentInChildren<Weapon>();
             _spaceship = GetComponent<Spaceship>();
         }
 
@@ -33,7 +33,12 @@ namespace PlayerSystem
 
             if (_input.buttonSouth.isPressed)
             {
-                _weapon.Shoot();
+                mainWeapon.Shoot();
+            }
+
+            if (_input.buttonEast.isPressed)
+            {
+                counterMeasures.Shoot();
             }
         }
     }

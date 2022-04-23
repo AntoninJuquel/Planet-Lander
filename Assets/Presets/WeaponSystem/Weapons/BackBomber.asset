@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c35af5c89b234df381b1b6ac1d9dcd57, type: 3}
-  m_Name: Gun
+  m_Name: BackBomber
   m_EditorClassIdentifier: 
   damage: 1
   burst: 1
   bulletPerBurst: 1
   firePoints:
-  - position: {x: 0, y: 0.1}
-    angle: 0
+  - position: {x: 0, y: -0.5}
+    angle: 180
   automatic: 1
   criticalChance: 0
   criticalDamage: 0
-  fireRate: 500
+  fireRate: 60
   burstRate: 0
-  reloadTime: 0
+  reloadTime: 3
   chargeTime: 0
   switchSpeed: 0
   magazine: 1
   capacity: 1
-  projectile: {fileID: 11400000, guid: 113b43cc3ed3ee749abfa41885ae2eb6, type: 2}
-  projectileSpeed: 50
-  projectileRange: 20
-  accuracy: 0.99
+  projectile: {fileID: 11400000, guid: f9ad607f34635f6458b20959ef30fddd, type: 2}
+  projectileSpeed: 0.1
+  projectileRange: 1
+  accuracy: 0.95
   state: 0

@@ -35,7 +35,7 @@ namespace PlayerSystem
 
         private void StartGameHandler(StartGameEvent e)
         {
-            SpawnPlayer();
+            Invoke(nameof(SpawnPlayer), .1f);
         }
 
         private void EntityKilledHandler(EntityKilledEvent e)
@@ -44,6 +44,8 @@ namespace PlayerSystem
             lives--;
             if (lives > 0)
                 SpawnPlayer();
+            else
+                Destroy(_player.gameObject);
             EventHandler.Instance.Raise(new PlayerDeathEvent(lives == 0));
         }
     }
