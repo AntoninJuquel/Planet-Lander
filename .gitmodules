@@ -4,3 +4,6 @@
 [submodule "Assets/Scripts/GameUtilities"]
 	path = Assets/Scripts/GameUtilities
 	url = https://github.com/AntoninJuquel/GameUtilities
+[submodule "Assets/Scripts/ReferenceSharing"]
+	path = Assets/Scripts/ReferenceSharing
+	url = https://github.com/AntoninJuquel/ReferenceSharing
