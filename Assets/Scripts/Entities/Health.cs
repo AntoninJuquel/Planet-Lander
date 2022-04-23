@@ -24,7 +24,7 @@ namespace Entities
         private void Awake()
         {
             _entityKilledEvent = new EntityKilledEvent(transform);
-            _health = maxHealth;
+            Setup(maxHealth);
         }
 
         private void Die()
@@ -49,6 +49,12 @@ namespace Entities
         {
             if (e.Transform != transform) return;
             TakeDamage(Mathf.CeilToInt(e.HitForce));
+        }
+
+        public void Setup(int health)
+        {
+            maxHealth = health;
+            _health = maxHealth;
         }
     }
 }
