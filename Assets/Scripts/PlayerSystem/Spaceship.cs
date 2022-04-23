@@ -1,13 +1,15 @@
 using System.Collections;
 using Managers.Event;
+using ReferenceSharing;
 using UnityEngine;
 
 namespace PlayerSystem
 {
     public class Spaceship : MonoBehaviour
     {
-        [SerializeField] private float forceSpeed, torqueSpeed, crashSpeed, maxSpeed, maxFuel, burnRate;
-        private float _forceInput, _torqueInput, _fuel;
+        [SerializeField] private float forceSpeed, torqueSpeed, crashSpeed, maxSpeed, burnRate;
+        [SerializeField] private Reference<float> fuelRef, fuelBurntRef, maxFuelRef, speedRef, altitudeRef;
+        private float _forceInput, _torqueInput;
         private bool _landed;
         private Rigidbody2D _rb;
         private WaitForFixedUpdate _fixedUpdate;
@@ -23,19 +25,20 @@ namespace PlayerSystem
             _spaceshipLandedEvent = new SpaceshipLandedEvent(transform);
             _spaceshipTookOffEvent = new SpaceshipTookOffEvent(transform);
 
-            _fuel = maxFuel;
+            fuelRef.Value = maxFuelRef;
         }
 
         private IEnumerator Start()
         {
             while (gameObject.activeSelf)
             {
-                if (_fuel > 0)
+                if (fuelRef > 0)
                 {
                     _rb.AddForce(transform.up * forceSpeed * _forceInput);
                     if (_forceInput != 0)
                     {
-                        _fuel -= burnRate * Time.deltaTime;
+                        fuelRef.Value -= burnRate * Time.deltaTime;
+                        fuelBurntRef.Value += burnRate * Time.deltaTime;
                         _ps.Emit(1);
                         _rb.AddForce(Vector2.up * Mathf.Abs(Physics2D.gravity.y), ForceMode2D.Force);
                         if (_rb.velocity.magnitude > maxSpeed)
@@ -47,10 +50,9 @@ namespace PlayerSystem
                     _rb.angularVelocity = -_torqueInput * torqueSpeed * (_forceInput != 0 ? .5f : 1);
                 }
 
-                var altitude = Mathf.Ceil(transform.position.y * 100);
-                var speed = Mathf.Ceil(_rb.velocity.magnitude * 100);
+                altitudeRef.Value = Mathf.Ceil(transform.position.y * 100);
+                speedRef.Value = Mathf.Ceil(_rb.velocity.magnitude * 100);
 
-                EventHandler.Instance.Raise(new SpaceshipMetricsEvent(transform, altitude, speed, _fuel, maxFuel));
                 _rb.drag = _forceInput;
                 yield return _fixedUpdate;
             }

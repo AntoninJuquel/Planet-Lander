@@ -1,4 +1,5 @@
 using Managers.Event;
+using ReferenceSharing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,43 +9,34 @@ namespace UI
 {
     public class HUD : Screen
     {
-        [SerializeField] private TextMeshProUGUI altitude, speed, timer;
+        [SerializeField] private Reference<float> maxFuelRef, fuelRef, altitudeRef, speedRef;
+        [SerializeField] private Reference<int> maxHealthRef, healthRef;
+        [SerializeField] private TextMeshProUGUI altitude, speed;
         [SerializeField] private Image health, fuel;
         private Transform _player;
 
         private void OnEnable()
         {
             EventHandler.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
-            EventHandler.Instance.AddListener<EntityDamagedEvent>(EntityDamagedHandler);
-            EventHandler.Instance.AddListener<SpaceshipMetricsEvent>(SpaceshipMetricsHandler);
         }
 
         private void OnDisable()
         {
             EventHandler.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
-            EventHandler.Instance.RemoveListener<EntityDamagedEvent>(EntityDamagedHandler);
-            EventHandler.Instance.RemoveListener<SpaceshipMetricsEvent>(SpaceshipMetricsHandler);
         }
 
         private void PlayerSpawnHandler(PlayerSpawnEvent e)
         {
             _player = e.Player;
-            health.fillAmount = 1;
             fuel.fillAmount = 1;
         }
 
-        private void EntityDamagedHandler(EntityDamagedEvent e)
+        private void Update()
         {
-            if (e.Transform != _player) return;
-            health.fillAmount = (float) e.Health / (float) e.MaxHealth;
-        }
-
-        private void SpaceshipMetricsHandler(SpaceshipMetricsEvent e)
-        {
-            if (e.Transform != _player) return;
-            altitude.text = $"{e.Altitude} m";
-            speed.text = $"{e.Speed} m.s<sup>-1";
-            fuel.fillAmount = e.Fuel / e.MaxFuel;
+            health.fillAmount = (float) healthRef.Value / (float) maxHealthRef.Value;
+            fuel.fillAmount = fuelRef.Value / maxFuelRef.Value;
+            altitude.text = $"{altitudeRef.Value} m";
+            speed.text = $"{speedRef.Value} m.s<sup>-1";
         }
     }
 }

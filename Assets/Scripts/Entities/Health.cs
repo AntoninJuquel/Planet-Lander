@@ -1,12 +1,12 @@
 using Managers.Event;
+using ReferenceSharing;
 using UnityEngine;
 
 namespace Entities
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private int maxHealth;
-        private int _health;
+        [SerializeField] private Reference<int> maxHealth, health;
         private EntityKilledEvent _entityKilledEvent;
 
         private void OnEnable()
@@ -24,7 +24,7 @@ namespace Entities
         private void Awake()
         {
             _entityKilledEvent = new EntityKilledEvent(transform);
-            Setup(maxHealth);
+            health.Value = maxHealth;
         }
 
         private void Die()
@@ -34,9 +34,9 @@ namespace Entities
 
         private void TakeDamage(int amount)
         {
-            _health -= amount;
-            EventHandler.Instance.Raise(new EntityDamagedEvent(transform, _health, maxHealth));
-            if (_health <= 0) Die();
+            health.Value -= amount;
+            EventHandler.Instance.Raise(new EntityDamagedEvent(transform, health.Value, maxHealth));
+            if (health.Value <= 0) Die();
         }
 
         private void ProjectileHitHandler(ProjectileHitEvent e)
@@ -49,12 +49,6 @@ namespace Entities
         {
             if (e.Transform != transform) return;
             TakeDamage(Mathf.CeilToInt(e.HitForce));
-        }
-
-        public void Setup(int health)
-        {
-            maxHealth = health;
-            _health = maxHealth;
         }
     }
 }

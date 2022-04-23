@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Managers.Event;
+using ReferenceSharing;
 using UnityEngine;
 
 namespace WeaponSystem
@@ -9,6 +10,8 @@ namespace WeaponSystem
     {
         [SerializeField] private List<WeaponPreset> weapons;
         [SerializeField] private ParticleSystem subEmitter;
+        [SerializeField] private Reference<int> shots, hit;
+        [SerializeField] private Reference<float> accuracy;
         private ParticleSystem _ps;
         private int _index;
         private bool _switching;
@@ -45,9 +48,26 @@ namespace WeaponSystem
             var events = _ps.GetCollisionEvents(other, _collisionEvents);
             for (var i = 0; i < events; i++)
             {
+                if (other.CompareTag("Enemy"))
+                    hit.Value++;
                 Debug.Log("Hit " + other.name);
                 EventHandler.Instance.Raise(new ProjectileHitEvent(other.transform, CurrentWeapon.damage));
             }
+
+            accuracy.Value = (float) hit.Value / (float) shots.Value;
+        }
+
+        private void Fire()
+        {
+            foreach (var firePoint in CurrentWeapon.firePoints)
+            {
+                AdjustParticles(firePoint);
+                _ps.Emit(CurrentWeapon.bulletPerBurst);
+            }
+
+            CurrentWeapon.magazine--;
+            shots.Value++;
+            accuracy.Value = (float) hit.Value / (float) shots.Value;
         }
 
         private IEnumerator ShootRoutine()
@@ -58,20 +78,10 @@ namespace WeaponSystem
 
             CurrentWeapon.state = State.Shooting;
 
-            foreach (var firePoint in CurrentWeapon.firePoints)
+            for (var i = 0; i < CurrentWeapon.burst && CurrentWeapon.magazine > 0; i++)
             {
-                AdjustParticles(firePoint);
-                _ps.Emit(CurrentWeapon.bulletPerBurst);
-            }
-
-            for (var i = 1; i < CurrentWeapon.burst && CurrentWeapon.magazine > 0; i++)
-            {
+                Fire();
                 yield return new WaitForSeconds(60 / CurrentWeapon.burstRate);
-                foreach (var firePoint in CurrentWeapon.firePoints)
-                {
-                    AdjustParticles(firePoint);
-                    _ps.Emit(CurrentWeapon.bulletPerBurst);
-                }
             }
 
             if (CurrentWeapon.magazine <= 0)

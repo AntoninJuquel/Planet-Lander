@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Managers.Event;
+using ReferenceSharing;
 using UnityEngine;
 
 namespace EnemySystem
@@ -9,7 +10,8 @@ namespace EnemySystem
     public class EnemyManager : MonoBehaviour
     {
         [SerializeField] private WavePreset[] wavePresets;
-        private int _waveNumber, _totalKill, _currentKill;
+        [SerializeField] private Reference<int> kills, waveNumber;
+        private int _currentKill;
         private Dictionary<Transform, Enemy> _enemies = new Dictionary<Transform, Enemy>();
         private Transform _player;
 
@@ -39,14 +41,14 @@ namespace EnemySystem
             Destroy(_enemies[enemy].gameObject);
             _enemies.Remove(enemy);
             _currentKill++;
-            _totalKill++;
+            kills.Value++;
         }
 
         private void NewWave(int index)
         {
-            _waveNumber = 0;
+            waveNumber.Value = 0;
             _currentKill = 0;
-            _totalKill = 0;
+            kills.Value = 0;
             StartCoroutine(SpawnWave(wavePresets[index]));
         }
 
@@ -55,7 +57,7 @@ namespace EnemySystem
             var killToConfirmWave = 0;
             foreach (var wave in wavePreset.Waves)
             {
-                _waveNumber++;
+                waveNumber.Value++;
                 killToConfirmWave += wave.enemyNumber;
                 EventHandler.Instance.Raise(new NewWaveEvent());
                 yield return new WaitForSeconds(wave.timeDelay);
@@ -74,7 +76,7 @@ namespace EnemySystem
                     killToConfirmWave = 0;
                 }
 
-                EventHandler.Instance.Raise(new WaveClearedEvent(_waveNumber == wavePreset.Waves.Length));
+                EventHandler.Instance.Raise(new WaveClearedEvent(waveNumber == wavePreset.Waves.Length));
                 yield return new WaitForSeconds(wave.waitTime);
             }
 

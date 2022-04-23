@@ -1,9 +1,11 @@
 using Managers.Event;
+using ReferenceSharing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Reference<float> timer;
     [SerializeField] private GameState state;
     private bool Playing => state == GameState.Playing;
     private bool Paused => state == GameState.Paused;
@@ -11,6 +13,7 @@ public class GameManager : MonoBehaviour
     private Transform _player;
     private bool _landed, _wavesCleared, _noLife;
     private int _gameIndex;
+    private float _startTime;
 
     private void OnEnable()
     {
@@ -75,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     private void CheckGameOver()
     {
+        timer.Value = Time.time - _startTime;
         if (_noLife)
         {
             EventHandler.Instance.Raise(new GameOverEvent(false));
@@ -90,6 +94,8 @@ public class GameManager : MonoBehaviour
         _landed = false;
         _wavesCleared = false;
         _noLife = false;
+
+        _startTime = Time.time;
         
         _gameIndex = levelIndex;
         state = GameState.Playing;
