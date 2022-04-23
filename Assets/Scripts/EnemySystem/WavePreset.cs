@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 namespace EnemySystem
@@ -14,7 +13,7 @@ namespace EnemySystem
     {
         public int enemyNumber;
         public float spawnRate;
-        public EnemyPreset[] enemies;
+        public Enemy[] enemies;
         public float timeDelay;
         public bool waitKill;
         public float waitTime;

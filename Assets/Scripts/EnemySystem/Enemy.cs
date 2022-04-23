@@ -1,52 +1,43 @@
-using System.Collections;
+using Entities;
 using UnityEngine;
-using WeaponSystem;
 
 namespace EnemySystem
 {
-    public class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour
     {
-        private SpriteRenderer _sr;
-        private Rigidbody2D _rb;
-        private Transform _target, _transform;
-        private Weapon _weapon;
-        private Coroutine _followTargetRoutine;
-        private float _speed;
+        [SerializeField] protected float Speed, Range;
 
-        private void Awake()
+        protected Rigidbody2D Rb;
+        protected Transform Target;
+        protected bool InAttackRange => Vector2.Distance(Target.position, transform.position) <= Range;
+        protected Vector2 TargetDirection => (Target.position - transform.position).normalized;
+
+        protected virtual void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
-            _weapon = GetComponentInChildren<Weapon>();
-            _sr = GetComponent<SpriteRenderer>();
-            _transform = transform;
+            Rb = GetComponent<Rigidbody2D>();
         }
 
-        private IEnumerator FollowTarget()
+        private void Update()
         {
-            while (_target)
-            {
-                var dir = (_target.position - _transform.position).normalized;
-                _transform.up = dir;
-                _rb.velocity = _transform.up * _speed;
-                _weapon.Shoot();
-                yield return null;
-            }
+            Attack();
         }
 
-        public void Setup(EnemyPreset enemyPreset, Transform target)
+        private void FixedUpdate()
         {
-            _speed = enemyPreset.speed;
-            _weapon.AddWeapon(enemyPreset.weapon);
-            _sr.color = enemyPreset.color;
-            _sr.sprite = enemyPreset.sprite;
-            SetTarget(target);
+            Move();
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(transform.position, Range);
+        }
+
+        protected abstract void Attack();
+        protected abstract void Move();
 
         public void SetTarget(Transform target)
         {
-            _target = target;
-            if (_followTargetRoutine != null) StopCoroutine(_followTargetRoutine);
-            _followTargetRoutine = StartCoroutine(FollowTarget());
+            Target = target;
         }
     }
 }

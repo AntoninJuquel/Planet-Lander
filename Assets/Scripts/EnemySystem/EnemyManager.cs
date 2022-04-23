@@ -8,7 +8,6 @@ namespace EnemySystem
 {
     public class EnemyManager : MonoBehaviour
     {
-        [SerializeField] private Enemy enemyPrefab;
         [SerializeField] private WavePreset[] wavePresets;
         private int _waveNumber, _totalKill, _currentKill;
         private Dictionary<Transform, Enemy> _enemies = new Dictionary<Transform, Enemy>();
@@ -28,10 +27,10 @@ namespace EnemySystem
             EventHandler.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
         }
 
-        private void SpawnEnemy(EnemyPreset enemyPreset, Vector3 position)
+        private void SpawnEnemy(Enemy enemy, Vector3 position)
         {
-            var newEnemy = Instantiate(enemyPrefab, position, Quaternion.identity).GetComponent<Enemy>();
-            newEnemy.Setup(enemyPreset, _player);
+            var newEnemy = Instantiate(enemy, position, Quaternion.identity).GetComponent<Enemy>();
+            newEnemy.SetTarget(_player);
             _enemies.Add(newEnemy.transform, newEnemy);
         }
 

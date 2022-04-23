@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7138307105026602179}
   - component: {fileID: -3725329972264005884}
-  - component: {fileID: 7138307105026602178}
+  - component: {fileID: -8905204130762834523}
   - component: {fileID: 7138307105026602177}
   - component: {fileID: 7138307105026602176}
   - component: {fileID: 7138307105026602191}
+  - component: {fileID: 5093792847419523265}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: TacticalEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7138307105026602189}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6304822613260750959}
@@ -48,9 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e65ef8e5b4a654f9d0a8f024bbfb46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  maxHealth: 0
---- !u!114 &7138307105026602178
+  maxHealth: 3
+--- !u!114 &-8905204130762834523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,9 +59,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7138307105026602189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33954b6ce30a13a4cb21cc2548b595f9, type: 3}
+  m_Script: {fileID: 11500000, guid: 980bb1d660748c24f8b5a5f56d8cdd8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 7
+  Range: 10
 --- !u!212 &7138307105026602177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -128,7 +130,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 0
@@ -160,6 +162,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!232 &5093792847419523265
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7138307105026602189}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 0.005
+  m_MaxDistanceOnly: 0
 --- !u!1001 &3818390064680750293
 PrefabInstance:
   m_ObjectHideFlags: 0
