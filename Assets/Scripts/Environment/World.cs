@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Managers.Event;
 using UnityEngine;
 
@@ -49,13 +50,18 @@ namespace Environment
 
         private void StartGameHandler(StartGameEvent e)
         {
-            Generate(e.Level);
+            _currentPresetIndex = e.Level % _worldPresets.Length;
+            foreach (var kvp in _worldParts)
+            {
+                kvp.Value.Generate(_worldPresets[_currentPresetIndex]);
+            }
+
+            Generate(_currentPresetIndex);
         }
-        
+
         private void Generate(int index)
         {
             Physics2D.gravity = Vector2.up * _worldPresets[index].gravity;
-            _currentPresetIndex = index;
         }
 
         private void GenerateWorldPart(float startX, float endX, float centerX)

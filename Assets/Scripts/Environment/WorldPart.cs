@@ -15,11 +15,16 @@ namespace Environment
             _lr = GetComponent<LineRenderer>();
         }
 
+        public void Generate(WorldPreset worldPreset)
+        {
+            Generate(worldPreset, _lr.GetPosition(0).x, _lr.GetPosition(_lr.positionCount - 1).x);
+        }
+
         public void Generate(WorldPreset worldPreset, float startX, float endX)
         {
             var points = new List<Vector2>();
             points.Add(new Vector2(startX, 0));
-            
+
             for (var x = startX + Random.Range(worldPreset.step.x, worldPreset.step.y); x < endX; x += Random.Range(worldPreset.step.x, worldPreset.step.y))
             {
                 var y = Random.Range(worldPreset.height.x, worldPreset.height.y);
@@ -31,7 +36,7 @@ namespace Environment
                         AddDeformation(ref x, y, points, worldDeformation, endX);
                 }
             }
-            
+
             points.Add(new Vector2(endX, 0));
 
             _lr.positionCount = points.Count;

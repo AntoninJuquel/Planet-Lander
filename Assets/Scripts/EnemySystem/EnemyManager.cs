@@ -45,6 +45,7 @@ namespace EnemySystem
 
         private void NewWave(int index)
         {
+            _waveNumber = 0;
             _currentKill = 0;
             _totalKill = 0;
             StartCoroutine(SpawnWave(wavePresets[index]));
@@ -91,7 +92,7 @@ namespace EnemySystem
             }
 
             _enemies = new Dictionary<Transform, Enemy>();
-            NewWave(e.Level);
+            NewWave(e.Level % wavePresets.Length);
         }
 
         private void PlayerSpawnHandler(PlayerSpawnEvent e)

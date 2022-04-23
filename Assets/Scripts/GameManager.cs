@@ -56,7 +56,8 @@ public class GameManager : MonoBehaviour
 
     private void SpaceshipLandedHandler(SpaceshipLandedEvent e)
     {
-        _landed = e.Transform == _player;
+        if (e.Transform == _player)
+            _landed = true;
         CheckGameOver();
     }
 
@@ -86,6 +87,10 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(int levelIndex)
     {
+        _landed = false;
+        _wavesCleared = false;
+        _noLife = false;
+        
         _gameIndex = levelIndex;
         state = GameState.Playing;
         Time.timeScale = 1;
