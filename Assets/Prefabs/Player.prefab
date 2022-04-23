@@ -225,7 +225,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e65ef8e5b4a654f9d0a8f024bbfb46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: aefe488a8218b4c4c93ab25800b8a604, type: 2}
+  health:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 5f2364e8ccb83654d984aedd41b1b08f, type: 2}
 --- !u!114 &4588011128215076289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,8 +249,27 @@ MonoBehaviour:
   torqueSpeed: 200
   crashSpeed: 3
   maxSpeed: 15
-  maxFuel: 100
   burnRate: 1
+  fuelRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: c7edfd004dc6a754cac34d135f12abfc, type: 2}
+  fuelBurntRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: e52d3cd564f49064ca7dde77e627583d, type: 2}
+  maxFuelRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: eeddf8d29c89f98448b63cd4a74d6973, type: 2}
+  speedRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 462f331838af59b4d931b47d40fb06e7, type: 2}
+  altitudeRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: ed26b36726dc4124bb4c6c7f90d04e52, type: 2}
 --- !u!114 &4588011128215076300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5096,6 +5122,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4588011128215076299}
     m_Modifications:
+    - target: {fileID: 1676892885569777804, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: shots.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 42e0ffd8912f06f47867b00d52dfe399, type: 2}
+    - target: {fileID: 1676892885569777804, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: accuracy.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 767b28fa701114e428206d7890244bac, type: 2}
+    - target: {fileID: 1676892885569777804, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: shots.useConstant
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1676892885569777804, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: accuracy.useConstant
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866777019467429550, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: m_Name
       value: MainWeapon

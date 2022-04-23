@@ -762,7 +762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2, y: 0}
   m_AnchorMax: {x: 0.8, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: -19.999939}
   m_SizeDelta: {x: 0, y: -560}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117506734
@@ -4068,6 +4068,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf0e4ea4f58e429e6766c863bdb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 1a4838498f9751e46be56c567e612605, type: 2}
   state: 0
 --- !u!1 &1212168576
 GameObject:
@@ -4446,6 +4450,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wavePresets:
   - {fileID: 11400000, guid: 7aae890844983a44c91a7a627c6b9ce4, type: 2}
+  kills:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: cb8cd17260ea9994e988a8a1c94f4390, type: 2}
+  waveNumber:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: a399d4a22260a5448ba04d5ec665e922, type: 2}
 --- !u!1 &1295800734
 GameObject:
   m_ObjectHideFlags: 0
@@ -4918,7 +4930,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399400611}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
@@ -4974,6 +4986,50 @@ MonoBehaviour:
   firstSelected: {fileID: 1524632923}
   title: {fileID: 1094659983}
   next: {fileID: 1106808271}
+  textFloatRefs:
+  - text: {fileID: 1676118788}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: 767b28fa701114e428206d7890244bac, type: 2}
+    sub: '%'
+  - text: {fileID: 1712432458}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: e52d3cd564f49064ca7dde77e627583d, type: 2}
+    sub: L
+  - text: {fileID: 1668713446}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: c7edfd004dc6a754cac34d135f12abfc, type: 2}
+    sub: ' L'
+  - text: {fileID: 492106262}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: 1a4838498f9751e46be56c567e612605, type: 2}
+    sub: sec
+  textIntRefs:
+  - text: {fileID: 1585470746}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: 42e0ffd8912f06f47867b00d52dfe399, type: 2}
+    sub: 
+  - text: {fileID: 1644019853}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: a399d4a22260a5448ba04d5ec665e922, type: 2}
+    sub: 
+  - text: {fileID: 89390728}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: cb8cd17260ea9994e988a8a1c94f4390, type: 2}
+    sub: 
 --- !u!1 &1399468478
 GameObject:
   m_ObjectHideFlags: 0
@@ -7197,9 +7253,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOverlay: 0
   firstSelected: {fileID: 0}
+  maxFuelRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: eeddf8d29c89f98448b63cd4a74d6973, type: 2}
+  fuelRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: c7edfd004dc6a754cac34d135f12abfc, type: 2}
+  altitudeRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: ed26b36726dc4124bb4c6c7f90d04e52, type: 2}
+  speedRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 462f331838af59b4d931b47d40fb06e7, type: 2}
+  maxHealthRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: aefe488a8218b4c4c93ab25800b8a604, type: 2}
+  healthRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 5f2364e8ccb83654d984aedd41b1b08f, type: 2}
   altitude: {fileID: 32884216}
   speed: {fileID: 1497394321}
-  timer: {fileID: 0}
   health: {fileID: 1319429595}
   fuel: {fileID: 1144388815}
 --- !u!1 &1812346550
