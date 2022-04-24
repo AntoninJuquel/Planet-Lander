@@ -25,12 +25,27 @@ namespace UI
 
         private void OnEnable()
         {
+            EventManager.Instance.AddListener<MainMenuEvent>(MainMenuHandler);
             EventManager.Instance.AddListener<GameOverEvent>(GameOverHandler);
         }
 
         private void OnDisable()
         {
+            EventManager.Instance.RemoveListener<MainMenuEvent>(MainMenuHandler);
             EventManager.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
+        }
+
+        private void MainMenuHandler(MainMenuEvent e)
+        {
+            foreach (var textFloatRef in textFloatRefs)
+            {
+                textFloatRef.variableRef.Value = 0;
+            }
+
+            foreach (var textIntRef in textIntRefs)
+            {
+                textIntRef.variableRef.Value = 0;
+            }
         }
 
         private void GameOverHandler(GameOverEvent e)
@@ -42,12 +57,14 @@ namespace UI
             {
                 var text = textFloatRef.text;
                 text.text = textFloatRef.variableRef.Value.ToString("0.00") + textFloatRef.sub;
+                textFloatRef.variableRef.Value = 0;
             }
 
             foreach (var textIntRef in textIntRefs)
             {
                 var text = textIntRef.text;
                 text.text = textIntRef.variableRef.Value.ToString() + textIntRef.sub;
+                textIntRef.variableRef.Value = 0;
             }
         }
     }
