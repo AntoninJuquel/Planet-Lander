@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
-using Event = MessagingSystem.Event;
 
 namespace WeaponSystem
 {
@@ -27,22 +26,6 @@ namespace WeaponSystem
                 weapons[i] = Instantiate(weapons[i]);
             }
         }
-
-        // private void Update()
-        // {
-        //     if (target)
-        //     {
-        //         var particleCount = _ps.particleCount;
-        //         var particles = new ParticleSystem.Particle[particleCount];
-        //         _ps.GetParticles(particles);
-        //         for (var i = 0; i < particles.Length; i++)
-        //         {
-        //             particles[i].velocity += (target.position - particles[i].position).normalized * 10;
-        //         }
-        //
-        //         _ps.SetParticles(particles, particleCount);
-        //     }
-        // }
 
         private void OnParticleCollision(GameObject other)
         {
