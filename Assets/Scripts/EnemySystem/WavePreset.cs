@@ -5,7 +5,7 @@ namespace EnemySystem
     [CreateAssetMenu(fileName = "New wave preset", menuName = "Wave", order = 0)]
     public class WavePreset : ScriptableObject
     {
-        public Wave[] Waves;
+        public Wave[] waves;
     }
 
     [System.Serializable]

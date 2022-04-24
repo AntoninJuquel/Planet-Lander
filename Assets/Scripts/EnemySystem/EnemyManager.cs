@@ -61,18 +61,18 @@ namespace EnemySystem
             _enemies = new Dictionary<Transform, Enemy>();
         }
 
-        private void NewWave()
+        private void StartEncounter()
         {
             waveNumber.Value = 0;
-            _currentKill = 0;
             kills.Value = 0;
-            _spawnRoutine = StartCoroutine(SpawnWave(wavePresets[PresetIndex]));
+            _currentKill = 0;
+            _spawnRoutine = StartCoroutine(SpawnWaves(wavePresets[PresetIndex]));
         }
 
-        private IEnumerator SpawnWave(WavePreset wavePreset)
+        private IEnumerator SpawnWaves(WavePreset wavePreset)
         {
             var killToConfirmWave = 0;
-            foreach (var wave in wavePreset.Waves)
+            foreach (var wave in wavePreset.waves)
             {
                 waveNumber.Value++;
                 killToConfirmWave += wave.enemyNumber;
@@ -93,7 +93,7 @@ namespace EnemySystem
                     killToConfirmWave = 0;
                 }
 
-                EventManager.Instance.Raise(new WaveClearedEvent(waveNumber == wavePreset.Waves.Length));
+                EventManager.Instance.Raise(new WaveClearedEvent(waveNumber == wavePreset.waves.Length));
                 yield return new WaitForSeconds(wave.waitTime);
             }
 
@@ -103,7 +103,7 @@ namespace EnemySystem
         private void StartGameHandler(StartGameEvent e)
         {
             KillAll();
-            NewWave();
+            StartEncounter();
         }
 
         private void PlayerSpawnHandler(PlayerSpawnEvent e)

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43ad00f5b683ec4b9ab78b788e2ecb2, type: 3}
   m_Name: Mars
   m_EditorClassIdentifier: 
-  Waves:
-  - enemyNumber: 2
+  waves:
+  - enemyNumber: 1
     spawnRate: 0.5
     enemies:
     - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
-    timeDelay: 3
+    timeDelay: 0
     waitKill: 1
     waitTime: 0
