@@ -12,7 +12,6 @@ namespace PlayerSystem
         private float _forceInput, _torqueInput;
         private bool _landed;
         private Rigidbody2D _rb;
-        private WaitForFixedUpdate _fixedUpdate;
         private SpaceshipLandedEvent _spaceshipLandedEvent;
         private SpaceshipTookOffEvent _spaceshipTookOffEvent;
         private ParticleSystem _ps;
@@ -21,41 +20,36 @@ namespace PlayerSystem
         {
             _ps = GetComponentInChildren<ParticleSystem>();
             _rb = GetComponent<Rigidbody2D>();
-            _fixedUpdate = new WaitForFixedUpdate();
             _spaceshipLandedEvent = new SpaceshipLandedEvent(transform);
             _spaceshipTookOffEvent = new SpaceshipTookOffEvent(transform);
 
             fuelRef.Value = maxFuelRef;
         }
 
-        private IEnumerator Start()
+        private void FixedUpdate()
         {
-            while (gameObject.activeSelf)
+            if (fuelRef > 0)
             {
-                if (fuelRef > 0)
+                _rb.AddForce(transform.up * forceSpeed * _forceInput);
+                if (_forceInput != 0)
                 {
-                    _rb.AddForce(transform.up * forceSpeed * _forceInput);
-                    if (_forceInput != 0)
+                    fuelRef.Value -= burnRate * Time.deltaTime;
+                    fuelBurntRef.Value += burnRate * Time.deltaTime;
+                    _ps.Emit(1);
+                    _rb.AddForce(Vector2.up * Mathf.Abs(Physics2D.gravity.y), ForceMode2D.Force);
+                    if (_rb.velocity.magnitude > maxSpeed)
                     {
-                        fuelRef.Value -= burnRate * Time.deltaTime;
-                        fuelBurntRef.Value += burnRate * Time.deltaTime;
-                        _ps.Emit(1);
-                        _rb.AddForce(Vector2.up * Mathf.Abs(Physics2D.gravity.y), ForceMode2D.Force);
-                        if (_rb.velocity.magnitude > maxSpeed)
-                        {
-                            _rb.velocity = _rb.velocity.normalized * maxSpeed;
-                        }
+                        _rb.velocity = _rb.velocity.normalized * maxSpeed;
                     }
-
-                    _rb.angularVelocity = -_torqueInput * torqueSpeed * (_forceInput != 0 ? .5f : 1);
                 }
 
-                altitudeRef.Value = Mathf.Ceil(transform.position.y * 100);
-                speedRef.Value = Mathf.Ceil(_rb.velocity.magnitude * 100);
-
-                _rb.drag = _forceInput;
-                yield return _fixedUpdate;
+                _rb.angularVelocity = -_torqueInput * torqueSpeed * (_forceInput != 0 ? .5f : 1);
             }
+
+            altitudeRef.Value = Mathf.Ceil(transform.position.y * 100);
+            speedRef.Value = Mathf.Ceil(_rb.velocity.magnitude * 100);
+
+            _rb.drag = _forceInput;
         }
 
         private void OnCollisionEnter2D(Collision2D col)
