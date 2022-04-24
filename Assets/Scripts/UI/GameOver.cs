@@ -32,7 +32,7 @@ namespace UI
         {
             EventManager.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
         }
-        
+
         private void GameOverHandler(GameOverEvent e)
         {
             title.text = (e.Win ? "VICTOIRE" : "DEFAITE");

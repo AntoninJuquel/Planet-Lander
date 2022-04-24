@@ -7,12 +7,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Reference<int> level;
     [SerializeField] private Reference<float> timer;
+    [SerializeField] private Reference<bool> landed, levelCleared, hasLife, hasFuel;
     [SerializeField] private GameState state;
     private bool Playing => state == GameState.Playing;
     private bool Paused => state == GameState.Paused;
 
     private Transform _player;
-    private bool _landed, _wavesCleared, _noLife;
     private float _startTime;
 
     private void OnEnable()
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
         EventManager.Instance.AddListener<PlayerDeathEvent>(PlayerDeathHandler);
         EventManager.Instance.AddListener<SpaceshipLandedEvent>(SpaceshipLandedHandler);
-        EventManager.Instance.AddListener<SpaceshipTookOffEvent>(SpaceshipTookOffHandler);
         EventManager.Instance.AddListener<WaveClearedEvent>(WaveClearedHandler);
     }
 
@@ -29,7 +28,6 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
         EventManager.Instance.RemoveListener<PlayerDeathEvent>(PlayerDeathHandler);
         EventManager.Instance.RemoveListener<SpaceshipLandedEvent>(SpaceshipLandedHandler);
-        EventManager.Instance.RemoveListener<SpaceshipTookOffEvent>(SpaceshipTookOffHandler);
         EventManager.Instance.RemoveListener<WaveClearedEvent>(WaveClearedHandler);
     }
 
@@ -53,37 +51,31 @@ public class GameManager : MonoBehaviour
 
     private void PlayerDeathHandler(PlayerDeathEvent e)
     {
-        _noLife = e.NoLife;
         CheckGameOver();
     }
 
     private void SpaceshipLandedHandler(SpaceshipLandedEvent e)
     {
-        if (e.Transform == _player)
-            _landed = true;
+        if (e.Transform != _player) return;
         CheckGameOver();
-    }
-
-    private void SpaceshipTookOffHandler(SpaceshipTookOffEvent e)
-    {
-        if (e.Transform == _player)
-            _landed = false;
     }
 
     private void WaveClearedHandler(WaveClearedEvent e)
     {
-        _wavesCleared = e.LastWave;
         CheckGameOver();
     }
 
     private void CheckGameOver()
     {
         timer.Value = Time.time - _startTime;
-        if (_noLife)
+
+        
+
+        if (!hasLife.Value || (landed.Value && !hasFuel.Value))
         {
             EventManager.Instance.Raise(new GameOverEvent(false));
         }
-        else if (_landed && _wavesCleared)
+        else if (landed.Value && levelCleared.Value)
         {
             EventManager.Instance.Raise(new GameOverEvent(true));
         }
@@ -96,10 +88,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(int levelIndex)
     {
-        _landed = false;
-        _wavesCleared = false;
-        _noLife = false;
-
         _startTime = Time.time;
 
         level.Value = levelIndex;

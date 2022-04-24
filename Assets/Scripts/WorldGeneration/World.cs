@@ -9,9 +9,9 @@ namespace WorldGeneration
     {
         [SerializeField] private Reference<int> levelRef;
         [SerializeField] private WorldPart worldPartPrefab;
-        [SerializeField] private WorldPreset[] _worldPresets;
-        private Dictionary<Vector2, WorldPart> _worldParts = new Dictionary<Vector2, WorldPart>();
-        private int PresetIndex => levelRef.Value % _worldPresets.Length;
+        [SerializeField] private WorldPreset[] worldPresets;
+        private readonly Dictionary<Vector2, WorldPart> _worldParts = new Dictionary<Vector2, WorldPart>();
+        private int PresetIndex => levelRef.Value % worldPresets.Length;
 
         private void OnEnable()
         {
@@ -53,7 +53,7 @@ namespace WorldGeneration
         {
             foreach (var kvp in _worldParts)
             {
-                kvp.Value.Generate(_worldPresets[PresetIndex]);
+                kvp.Value.Generate(worldPresets[PresetIndex]);
             }
 
             Generate(PresetIndex);
@@ -61,14 +61,14 @@ namespace WorldGeneration
 
         private void Generate(int index)
         {
-            Physics2D.gravity = Vector2.up * _worldPresets[index].gravity;
+            Physics2D.gravity = Vector2.up * worldPresets[index].gravity;
         }
 
         private void GenerateWorldPart(float startX, float endX, float centerX)
         {
             Vector2 position = Vector3.right * centerX;
             var worldPart = Instantiate(worldPartPrefab, Vector3.zero, Quaternion.identity, transform);
-            worldPart.Generate(_worldPresets[PresetIndex], startX, endX);
+            worldPart.Generate(worldPresets[PresetIndex], startX, endX);
             _worldParts.Add(position, worldPart);
         }
     }

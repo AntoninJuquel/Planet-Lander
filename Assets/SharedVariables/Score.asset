@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f78175e4b4647d994d322ba9f11faf9, type: 3}
-  m_Name: MaxFuel
+  m_Script: {fileID: 11500000, guid: c0c203f6e36748efa3135c1cad585dd2, type: 3}
+  m_Name: Score
   m_EditorClassIdentifier: 
-  value: 50
+  value: 0
