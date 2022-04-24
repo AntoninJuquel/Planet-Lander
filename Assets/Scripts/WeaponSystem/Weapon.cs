@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
@@ -51,7 +51,7 @@ namespace WeaponSystem
                 if (other.CompareTag("Enemy"))
                     hit.Value++;
                 Debug.Log("Hit " + other.name);
-                EventHandler.Instance.Raise(new ProjectileHitEvent(other.transform, CurrentWeapon.damage));
+                EventManager.Instance.Raise(new ProjectileHitEvent(other.transform, CurrentWeapon.damage));
             }
 
             accuracy.Value = (float) hit.Value / (float) shots.Value;

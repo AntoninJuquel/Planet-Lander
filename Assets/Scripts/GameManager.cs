@@ -1,4 +1,4 @@
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,20 +17,20 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
-        EventHandler.Instance.AddListener<PlayerDeathEvent>(PlayerDeathHandler);
-        EventHandler.Instance.AddListener<SpaceshipLandedEvent>(SpaceshipLandedHandler);
-        EventHandler.Instance.AddListener<SpaceshipTookOffEvent>(SpaceshipTookOffHandler);
-        EventHandler.Instance.AddListener<WaveClearedEvent>(WaveClearedHandler);
+        EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+        EventManager.Instance.AddListener<PlayerDeathEvent>(PlayerDeathHandler);
+        EventManager.Instance.AddListener<SpaceshipLandedEvent>(SpaceshipLandedHandler);
+        EventManager.Instance.AddListener<SpaceshipTookOffEvent>(SpaceshipTookOffHandler);
+        EventManager.Instance.AddListener<WaveClearedEvent>(WaveClearedHandler);
     }
 
     private void OnDisable()
     {
-        EventHandler.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
-        EventHandler.Instance.RemoveListener<PlayerDeathEvent>(PlayerDeathHandler);
-        EventHandler.Instance.RemoveListener<SpaceshipLandedEvent>(SpaceshipLandedHandler);
-        EventHandler.Instance.RemoveListener<SpaceshipTookOffEvent>(SpaceshipTookOffHandler);
-        EventHandler.Instance.RemoveListener<WaveClearedEvent>(WaveClearedHandler);
+        EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+        EventManager.Instance.RemoveListener<PlayerDeathEvent>(PlayerDeathHandler);
+        EventManager.Instance.RemoveListener<SpaceshipLandedEvent>(SpaceshipLandedHandler);
+        EventManager.Instance.RemoveListener<SpaceshipTookOffEvent>(SpaceshipTookOffHandler);
+        EventManager.Instance.RemoveListener<WaveClearedEvent>(WaveClearedHandler);
     }
 
     private void Start()
@@ -81,11 +81,11 @@ public class GameManager : MonoBehaviour
         timer.Value = Time.time - _startTime;
         if (_noLife)
         {
-            EventHandler.Instance.Raise(new GameOverEvent(false));
+            EventManager.Instance.Raise(new GameOverEvent(false));
         }
         else if (_landed && _wavesCleared)
         {
-            EventHandler.Instance.Raise(new GameOverEvent(true));
+            EventManager.Instance.Raise(new GameOverEvent(true));
         }
     }
 
@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         level.Value = levelIndex;
         state = GameState.Playing;
         Time.timeScale = 1;
-        EventHandler.Instance.Raise(new StartGameEvent());
+        EventManager.Instance.Raise(new StartGameEvent());
     }
 
     public void TogglePause()
@@ -114,20 +114,20 @@ public class GameManager : MonoBehaviour
         {
             state = GameState.Paused;
             Time.timeScale = 0;
-            EventHandler.Instance.Raise(new TogglePauseEvent(true));
+            EventManager.Instance.Raise(new TogglePauseEvent(true));
         }
         else if (Paused)
         {
             state = GameState.Playing;
             Time.timeScale = 1;
-            EventHandler.Instance.Raise(new TogglePauseEvent(false));
+            EventManager.Instance.Raise(new TogglePauseEvent(false));
         }
     }
 
     public void MainMenu()
     {
         state = GameState.Menu;
-        EventHandler.Instance.Raise(new MainMenuEvent());
+        EventManager.Instance.Raise(new MainMenuEvent());
     }
 
     public void NextGame()
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()
     {
-        EventHandler.Instance.Raise(new StopGameEvent());
+        EventManager.Instance.Raise(new StopGameEvent());
         Application.Quit();
     }
 }

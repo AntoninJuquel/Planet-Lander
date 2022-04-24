@@ -1,4 +1,4 @@
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using TMPro;
 using UnityEngine;
@@ -17,12 +17,12 @@ namespace UI
 
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+            EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+            EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
         }
 
         private void PlayerSpawnHandler(PlayerSpawnEvent e)

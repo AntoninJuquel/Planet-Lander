@@ -1,4 +1,4 @@
-﻿using Managers.Event;
+﻿using MessagingSystem;
 using ReferenceSharing;
 using TMPro;
 using UnityEngine;
@@ -25,12 +25,12 @@ namespace UI
 
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<GameOverEvent>(GameOverHandler);
+            EventManager.Instance.AddListener<GameOverEvent>(GameOverHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
+            EventManager.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
         }
 
         private void GameOverHandler(GameOverEvent e)

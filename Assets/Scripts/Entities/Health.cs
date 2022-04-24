@@ -1,4 +1,4 @@
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
@@ -11,14 +11,14 @@ namespace Entities
 
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<ProjectileHitEvent>(ProjectileHitHandler);
-            EventHandler.Instance.AddListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
+            EventManager.Instance.AddListener<ProjectileHitEvent>(ProjectileHitHandler);
+            EventManager.Instance.AddListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<ProjectileHitEvent>(ProjectileHitHandler);
-            EventHandler.Instance.RemoveListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
+            EventManager.Instance.RemoveListener<ProjectileHitEvent>(ProjectileHitHandler);
+            EventManager.Instance.RemoveListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
         }
 
         private void Awake()
@@ -29,13 +29,13 @@ namespace Entities
 
         private void Die()
         {
-            EventHandler.Instance.Raise(_entityKilledEvent);
+            EventManager.Instance.Raise(_entityKilledEvent);
         }
 
         private void TakeDamage(int amount)
         {
             health.Value -= amount;
-            EventHandler.Instance.Raise(new EntityDamagedEvent(transform, health.Value, maxHealth));
+            EventManager.Instance.Raise(new EntityDamagedEvent(transform, health.Value, maxHealth));
             if (health.Value <= 0) Die();
         }
 

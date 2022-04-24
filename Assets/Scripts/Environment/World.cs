@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
@@ -16,18 +15,18 @@ namespace Environment
 
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.AddListener<NewChunkEvent>(NewChunkHandler);
-            EventHandler.Instance.AddListener<EnableChunkEvent>(EnableChunkHandler);
-            EventHandler.Instance.AddListener<DisableChunkEvent>(DisableChunkHandler);
+            EventManager.Instance.AddListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.AddListener<NewChunkEvent>(NewChunkHandler);
+            EventManager.Instance.AddListener<EnableChunkEvent>(EnableChunkHandler);
+            EventManager.Instance.AddListener<DisableChunkEvent>(DisableChunkHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.RemoveListener<NewChunkEvent>(NewChunkHandler);
-            EventHandler.Instance.RemoveListener<EnableChunkEvent>(EnableChunkHandler);
-            EventHandler.Instance.RemoveListener<DisableChunkEvent>(DisableChunkHandler);
+            EventManager.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.RemoveListener<NewChunkEvent>(NewChunkHandler);
+            EventManager.Instance.RemoveListener<EnableChunkEvent>(EnableChunkHandler);
+            EventManager.Instance.RemoveListener<DisableChunkEvent>(DisableChunkHandler);
         }
 
         private void NewChunkHandler(NewChunkEvent e)

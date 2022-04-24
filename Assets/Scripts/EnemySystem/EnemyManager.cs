@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
@@ -18,16 +18,16 @@ namespace EnemySystem
 
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
-            EventHandler.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
+            EventManager.Instance.AddListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+            EventManager.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
-            EventHandler.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
+            EventManager.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+            EventManager.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
         }
 
         private void SpawnEnemy(Enemy enemy, Vector3 position)
@@ -60,7 +60,7 @@ namespace EnemySystem
             {
                 waveNumber.Value++;
                 killToConfirmWave += wave.enemyNumber;
-                EventHandler.Instance.Raise(new NewWaveEvent());
+                EventManager.Instance.Raise(new NewWaveEvent());
                 yield return new WaitForSeconds(wave.timeDelay);
 
                 for (var i = 0; i < wave.enemyNumber; i++)
@@ -77,7 +77,7 @@ namespace EnemySystem
                     killToConfirmWave = 0;
                 }
 
-                EventHandler.Instance.Raise(new WaveClearedEvent(waveNumber == wavePreset.Waves.Length));
+                EventManager.Instance.Raise(new WaveClearedEvent(waveNumber == wavePreset.Waves.Length));
                 yield return new WaitForSeconds(wave.waitTime);
             }
 

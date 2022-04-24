@@ -1,4 +1,4 @@
-﻿using Managers.Event;
+﻿using MessagingSystem;
 using Managers.ScreenNavigator;
 
 namespace UI
@@ -7,18 +7,18 @@ namespace UI
     {
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.AddListener<TogglePauseEvent>(TogglePauseHandler);
-            EventHandler.Instance.AddListener<MainMenuEvent>(MainMenuHandler);
-            EventHandler.Instance.AddListener<GameOverEvent>(GameOverHandler);
+            EventManager.Instance.AddListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.AddListener<TogglePauseEvent>(TogglePauseHandler);
+            EventManager.Instance.AddListener<MainMenuEvent>(MainMenuHandler);
+            EventManager.Instance.AddListener<GameOverEvent>(GameOverHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.RemoveListener<TogglePauseEvent>(TogglePauseHandler);
-            EventHandler.Instance.RemoveListener<MainMenuEvent>(MainMenuHandler);
-            EventHandler.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
+            EventManager.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.RemoveListener<TogglePauseEvent>(TogglePauseHandler);
+            EventManager.Instance.RemoveListener<MainMenuEvent>(MainMenuHandler);
+            EventManager.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
         }
 
         private void TogglePauseHandler(TogglePauseEvent e)

@@ -1,6 +1,4 @@
-using System.Collections;
-using Entities;
-using Managers.Event;
+using MessagingSystem;
 using UnityEngine;
 
 namespace PlayerSystem
@@ -13,14 +11,14 @@ namespace PlayerSystem
 
         private void OnEnable()
         {
-            EventHandler.Instance.AddListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
+            EventManager.Instance.AddListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
         }
 
         private void OnDisable()
         {
-            EventHandler.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
-            EventHandler.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
+            EventManager.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
+            EventManager.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
         }
 
         private void SpawnPlayer()
@@ -46,7 +44,7 @@ namespace PlayerSystem
                 SpawnPlayer();
             else
                 Destroy(_player.gameObject);
-            EventHandler.Instance.Raise(new PlayerDeathEvent(lives == 0));
+            EventManager.Instance.Raise(new PlayerDeathEvent(lives == 0));
         }
     }
 }

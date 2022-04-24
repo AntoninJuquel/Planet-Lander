@@ -1,5 +1,5 @@
 using System.Collections;
-using Managers.Event;
+using MessagingSystem;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -18,12 +18,12 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventHandler.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+        EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
     }
 
     private void OnDisable()
     {
-        EventHandler.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
+        EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
     }
 
     private void PlayerSpawnHandler(PlayerSpawnEvent e)

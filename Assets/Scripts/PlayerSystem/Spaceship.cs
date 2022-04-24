@@ -1,5 +1,5 @@
 using System.Collections;
-using Managers.Event;
+using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
@@ -63,14 +63,14 @@ namespace PlayerSystem
             var hitVelocity = col.relativeVelocity;
             if (hitVelocity.magnitude >= crashSpeed)
             {
-                EventHandler.Instance.Raise(new SpaceshipCrashedEvent(transform, col.relativeVelocity.magnitude));
+                EventManager.Instance.Raise(new SpaceshipCrashedEvent(transform, col.relativeVelocity.magnitude));
             }
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             _landed = false;
-            EventHandler.Instance.Raise(_spaceshipTookOffEvent);
+            EventManager.Instance.Raise(_spaceshipTookOffEvent);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -78,7 +78,7 @@ namespace PlayerSystem
             if (!_landed && _rb.velocity == Vector2.zero)
             {
                 _landed = true;
-                EventHandler.Instance.Raise(_spaceshipLandedEvent);
+                EventManager.Instance.Raise(_spaceshipLandedEvent);
             }
         }
 

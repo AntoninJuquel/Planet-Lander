@@ -1,5 +1,4 @@
-using Entities;
-using Managers.Event;
+using MessagingSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WeaponSystem;
@@ -23,7 +22,7 @@ namespace PlayerSystem
 
         private void Start()
         {
-            EventHandler.Instance.Raise(_playerSpawnEvent);
+            EventManager.Instance.Raise(_playerSpawnEvent);
         }
 
         private void Update()
