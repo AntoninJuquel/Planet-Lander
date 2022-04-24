@@ -1,5 +1,5 @@
 ﻿using MessagingSystem;
-using Managers.ScreenNavigator;
+using ScreenNavigation;
 
 namespace UI
 {

@@ -3,7 +3,7 @@ using ReferenceSharing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Screen = Managers.ScreenNavigator.Screen;
+using Screen = ScreenNavigation.Screen;
 
 namespace UI
 {

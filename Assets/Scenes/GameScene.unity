@@ -1311,10 +1311,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 495318218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcdc7cf657366d44988483ea7894257d, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b0d3c09089b1047a3286271c5d8ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOverlay: 1
+  isOverlay: 0
   firstSelected: {fileID: 1399468478}
 --- !u!1 &513346817
 GameObject:
@@ -2144,12 +2144,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1431882284}
-        m_TargetAssemblyTypeName: Managers.ScreenNavigator.StackNavigator, Assembly-CSharp
+        m_TargetAssemblyTypeName: ScreenNavigation.StackNavigator, Assembly-CSharp
         m_MethodName: Navigate
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1873640356}
-          m_ObjectArgumentAssemblyTypeName: Managers.ScreenNavigator.Screen, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: ScreenNavigation.Screen, Assembly-CSharp
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3106,12 +3106,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1431882284}
-        m_TargetAssemblyTypeName: Managers.ScreenNavigator.StackNavigator, Assembly-CSharp
+        m_TargetAssemblyTypeName: ScreenNavigation.StackNavigator, Assembly-CSharp
         m_MethodName: Navigate
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1123405851}
-          m_ObjectArgumentAssemblyTypeName: Managers.ScreenNavigator.Screen, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: ScreenNavigation.Screen, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3738,7 +3738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1123405850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcdc7cf657366d44988483ea7894257d, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b0d3c09089b1047a3286271c5d8ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOverlay: 0
@@ -7456,7 +7456,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1873640355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcdc7cf657366d44988483ea7894257d, type: 3}
+  m_Script: {fileID: 11500000, guid: 11b0d3c09089b1047a3286271c5d8ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOverlay: 0

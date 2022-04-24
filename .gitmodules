@@ -10,3 +10,6 @@
 [submodule "Assets/Scripts/MessagingSystem"]
 	path = Assets/Scripts/MessagingSystem
 	url = https://github.com/AntoninJuquel/MessagingSystem
+[submodule "Assets/Scripts/ScreenNavigation"]
+	path = Assets/Scripts/ScreenNavigation
+	url = https://github.com/AntoninJuquel/ScreenNavigation
