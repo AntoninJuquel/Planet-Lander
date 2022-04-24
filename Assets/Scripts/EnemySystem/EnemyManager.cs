@@ -11,6 +11,7 @@ namespace EnemySystem
     {
         [SerializeField] private WavePreset[] wavePresets;
         [SerializeField] private Reference<int> kills, waveNumber, levelRef;
+        [SerializeField] private Reference<bool> levelCleared;
         private int _currentKill;
         private Dictionary<Transform, Enemy> _enemies = new Dictionary<Transform, Enemy>();
         private Transform _player;
@@ -23,6 +24,7 @@ namespace EnemySystem
             EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
             EventManager.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
             EventManager.Instance.AddListener<MainMenuEvent>(MainMenuHandler);
+            EventManager.Instance.AddListener<GameOverEvent>(GameOverHandler);
         }
 
         private void OnDisable()
@@ -31,6 +33,7 @@ namespace EnemySystem
             EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
             EventManager.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
             EventManager.Instance.RemoveListener<MainMenuEvent>(MainMenuHandler);
+            EventManager.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
         }
 
         private void SpawnEnemy(Enemy enemy, Vector3 position)
@@ -63,6 +66,7 @@ namespace EnemySystem
 
         private void StartEncounter()
         {
+            levelCleared.Value = false;
             waveNumber.Value = 0;
             kills.Value = 0;
             _currentKill = 0;
@@ -93,7 +97,8 @@ namespace EnemySystem
                     killToConfirmWave = 0;
                 }
 
-                EventManager.Instance.Raise(new WaveClearedEvent(waveNumber == wavePreset.waves.Length));
+                levelCleared.Value = waveNumber.Value == wavePreset.waves.Length;
+                EventManager.Instance.Raise(new WaveClearedEvent());
                 yield return new WaitForSeconds(wave.waitTime);
             }
 
@@ -124,6 +129,11 @@ namespace EnemySystem
         }
 
         private void MainMenuHandler(MainMenuEvent e)
+        {
+            KillAll();
+        }
+
+        private void GameOverHandler(GameOverEvent e)
         {
             KillAll();
         }
