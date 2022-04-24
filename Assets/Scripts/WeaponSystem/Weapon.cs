@@ -38,7 +38,7 @@ namespace WeaponSystem
                 EventManager.Instance.Raise(new ProjectileHitEvent(other.transform, CurrentWeapon.damage));
             }
 
-            accuracy.Value = (float) hits.Value / (float) shots.Value;
+            accuracy.Value = (float) hits.Value / (float) shots.Value * 100f;
         }
 
         private void Fire()
@@ -51,7 +51,7 @@ namespace WeaponSystem
 
             CurrentWeapon.magazine--;
             shots.Value++;
-            accuracy.Value = (float) hits.Value / (float) shots.Value;
+            accuracy.Value = (float) hits.Value / (float) shots.Value * 100f;
         }
 
         private IEnumerator ShootRoutine()
