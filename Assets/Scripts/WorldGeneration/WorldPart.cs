@@ -2,7 +2,7 @@
 using GameUtilities;
 using UnityEngine;
 
-namespace Environment
+namespace WorldGeneration
 {
     public class WorldPart : MonoBehaviour
     {

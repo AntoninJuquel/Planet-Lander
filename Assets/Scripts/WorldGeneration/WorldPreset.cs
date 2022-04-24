@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Environment
+namespace WorldGeneration
 {
     [CreateAssetMenu(fileName = "New world preset", menuName = "World", order = 0)]
     public class WorldPreset : ScriptableObject

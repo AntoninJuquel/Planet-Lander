@@ -3,7 +3,7 @@ using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
-namespace Environment
+namespace WorldGeneration
 {
     public class World : MonoBehaviour
     {
