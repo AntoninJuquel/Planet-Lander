@@ -10,10 +10,11 @@ namespace EnemySystem
     public class EnemyManager : MonoBehaviour
     {
         [SerializeField] private WavePreset[] wavePresets;
-        [SerializeField] private Reference<int> kills, waveNumber;
+        [SerializeField] private Reference<int> kills, waveNumber, levelRef;
         private int _currentKill;
         private Dictionary<Transform, Enemy> _enemies = new Dictionary<Transform, Enemy>();
         private Transform _player;
+        private int PresetIndex => levelRef.Value % wavePresets.Length;
 
         private void OnEnable()
         {
@@ -44,12 +45,12 @@ namespace EnemySystem
             kills.Value++;
         }
 
-        private void NewWave(int index)
+        private void NewWave()
         {
             waveNumber.Value = 0;
             _currentKill = 0;
             kills.Value = 0;
-            StartCoroutine(SpawnWave(wavePresets[index]));
+            StartCoroutine(SpawnWave(wavePresets[PresetIndex]));
         }
 
         private IEnumerator SpawnWave(WavePreset wavePreset)
@@ -93,7 +94,7 @@ namespace EnemySystem
             }
 
             _enemies = new Dictionary<Transform, Enemy>();
-            NewWave(e.Level % wavePresets.Length);
+            NewWave();
         }
 
         private void PlayerSpawnHandler(PlayerSpawnEvent e)

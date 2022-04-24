@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Reference<int> level;
     [SerializeField] private Reference<float> timer;
     [SerializeField] private GameState state;
     private bool Playing => state == GameState.Playing;
@@ -12,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     private Transform _player;
     private bool _landed, _wavesCleared, _noLife;
-    private int _gameIndex;
     private float _startTime;
 
     private void OnEnable()
@@ -89,6 +89,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void StartGame()
+    {
+        StartGame(level.Value);
+    }
+
     public void StartGame(int levelIndex)
     {
         _landed = false;
@@ -96,11 +101,11 @@ public class GameManager : MonoBehaviour
         _noLife = false;
 
         _startTime = Time.time;
-        
-        _gameIndex = levelIndex;
+
+        level.Value = levelIndex;
         state = GameState.Playing;
         Time.timeScale = 1;
-        EventHandler.Instance.Raise(new StartGameEvent(levelIndex));
+        EventHandler.Instance.Raise(new StartGameEvent());
     }
 
     public void TogglePause()
@@ -127,13 +132,13 @@ public class GameManager : MonoBehaviour
 
     public void NextGame()
     {
-        _gameIndex++;
-        StartGame(_gameIndex);
+        level.Value++;
+        StartGame();
     }
 
     public void RestartGame()
     {
-        StartGame(_gameIndex);
+        StartGame();
     }
 
     public void StopGame()

@@ -4068,6 +4068,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345cf0e4ea4f58e429e6766c863bdb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 98b5ae16aa1240f41b028da0f6ff3fdd, type: 2}
   timer:
     useConstant: 0
     constantValue: 0
@@ -4458,6 +4462,10 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     Variable: {fileID: 11400000, guid: a399d4a22260a5448ba04d5ec665e922, type: 2}
+  levelRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 98b5ae16aa1240f41b028da0f6ff3fdd, type: 2}
 --- !u!1 &1295800734
 GameObject:
   m_ObjectHideFlags: 0
@@ -4711,6 +4719,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fd9a3de52024b5a9b4d1a04286e5e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 98b5ae16aa1240f41b028da0f6ff3fdd, type: 2}
   worldPartPrefab: {fileID: 8625773127204015335, guid: 4b5cb96033e242b458a9522ef54ed79f, type: 3}
   _worldPresets:
   - {fileID: 11400000, guid: 18019a1b1fb79d74fb66c4625295f0bc, type: 2}

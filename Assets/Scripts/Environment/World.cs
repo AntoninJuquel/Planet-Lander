@@ -1,16 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Managers.Event;
+using ReferenceSharing;
 using UnityEngine;
 
 namespace Environment
 {
     public class World : MonoBehaviour
     {
+        [SerializeField] private Reference<int> levelRef;
         [SerializeField] private WorldPart worldPartPrefab;
         [SerializeField] private WorldPreset[] _worldPresets;
-        private int _currentPresetIndex;
         private Dictionary<Vector2, WorldPart> _worldParts = new Dictionary<Vector2, WorldPart>();
+        private int PresetIndex => levelRef.Value % _worldPresets.Length;
 
         private void OnEnable()
         {
@@ -50,13 +52,12 @@ namespace Environment
 
         private void StartGameHandler(StartGameEvent e)
         {
-            _currentPresetIndex = e.Level % _worldPresets.Length;
             foreach (var kvp in _worldParts)
             {
-                kvp.Value.Generate(_worldPresets[_currentPresetIndex]);
+                kvp.Value.Generate(_worldPresets[PresetIndex]);
             }
 
-            Generate(_currentPresetIndex);
+            Generate(PresetIndex);
         }
 
         private void Generate(int index)
@@ -68,7 +69,7 @@ namespace Environment
         {
             Vector2 position = Vector3.right * centerX;
             var worldPart = Instantiate(worldPartPrefab, Vector3.zero, Quaternion.identity, transform);
-            worldPart.Generate(_worldPresets[_currentPresetIndex], startX, endX);
+            worldPart.Generate(_worldPresets[PresetIndex], startX, endX);
             _worldParts.Add(position, worldPart);
         }
     }
