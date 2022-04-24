@@ -12,7 +12,7 @@ namespace UI
     {
         public TextMeshProUGUI text;
         public Reference<T> variableRef;
-        public string sub;
+        public string prev, sub, format;
     }
 
     public class GameOver : Screen
@@ -41,13 +41,13 @@ namespace UI
             foreach (var textFloatRef in textFloatRefs)
             {
                 var text = textFloatRef.text;
-                text.text = textFloatRef.variableRef.Value.ToString("0.00") + textFloatRef.sub;
+                text.text = textFloatRef.prev + textFloatRef.variableRef.Value.ToString(textFloatRef.format) + textFloatRef.sub;
             }
 
             foreach (var textIntRef in textIntRefs)
             {
                 var text = textIntRef.text;
-                text.text = textIntRef.variableRef.Value.ToString() + textIntRef.sub;
+                text.text = textIntRef.prev + textIntRef.variableRef.Value.ToString(textIntRef.format) + textIntRef.sub;
             }
         }
     }

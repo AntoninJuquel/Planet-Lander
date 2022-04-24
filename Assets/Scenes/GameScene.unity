@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!114 &316326085
 MonoBehaviour:
@@ -1197,7 +1197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &492106260
 GameObject:
@@ -1430,7 +1430,7 @@ RectTransform:
   - {fileID: 1960918212}
   - {fileID: 1112542325}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4030,7 +4030,7 @@ RectTransform:
   - {fileID: 540287579}
   - {fileID: 1939796410}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4282,6 +4282,14 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     Variable: {fileID: 11400000, guid: 98b5ae16aa1240f41b028da0f6ff3fdd, type: 2}
+  scoreRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 0099e87663baf8749b4577deb4b54829, type: 2}
+  bestScoreRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 1b4f1ef66c51ea148936af5d36ab414c, type: 2}
   timer:
     useConstant: 0
     constantValue: 0
@@ -4303,6 +4311,43 @@ MonoBehaviour:
     constantValue: 0
     Variable: {fileID: 11400000, guid: d26f3cd4b6e93a349be16af3dce43904, type: 2}
   state: 0
+  score:
+    kills:
+      variable:
+        useConstant: 0
+        constantValue: 0
+        Variable: {fileID: 11400000, guid: cb8cd17260ea9994e988a8a1c94f4390, type: 2}
+      constant: 1
+    lives:
+      variable:
+        useConstant: 0
+        constantValue: 0
+        Variable: {fileID: 11400000, guid: 6c736e963610d274c99123fdca6d45f0, type: 2}
+      constant: 5
+    timer:
+      variable:
+        useConstant: 0
+        constantValue: 0
+        Variable: {fileID: 11400000, guid: 1a4838498f9751e46be56c567e612605, type: 2}
+      constant: 2
+    fuel:
+      variable:
+        useConstant: 0
+        constantValue: 0
+        Variable: {fileID: 11400000, guid: c7edfd004dc6a754cac34d135f12abfc, type: 2}
+      constant: 1
+    fuelBurnt:
+      variable:
+        useConstant: 0
+        constantValue: 0
+        Variable: {fileID: 11400000, guid: e52d3cd564f49064ca7dde77e627583d, type: 2}
+      constant: 3
+    accuracy:
+      variable:
+        useConstant: 0
+        constantValue: 0
+        Variable: {fileID: 11400000, guid: 767b28fa701114e428206d7890244bac, type: 2}
+      constant: 0
 --- !u!1 &1212168576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,7 +5448,7 @@ RectTransform:
   - {fileID: 1524632927}
   - {fileID: 2159510}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5432,56 +5477,82 @@ MonoBehaviour:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: 767b28fa701114e428206d7890244bac, type: 2}
+    prev: 
     sub: '%'
+    format: 0.00
   - text: {fileID: 1712432458}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: e52d3cd564f49064ca7dde77e627583d, type: 2}
+    prev: 
     sub: L
+    format: 
   - text: {fileID: 1668713446}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: c7edfd004dc6a754cac34d135f12abfc, type: 2}
+    prev: 
     sub: ' L'
+    format: 
   - text: {fileID: 492106262}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: 1a4838498f9751e46be56c567e612605, type: 2}
+    prev: 
     sub: sec
+    format: 
   textIntRefs:
   - text: {fileID: 89390728}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: cb8cd17260ea9994e988a8a1c94f4390, type: 2}
+    prev: 
     sub: 
+    format: 
   - text: {fileID: 1585470746}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: 42e0ffd8912f06f47867b00d52dfe399, type: 2}
+    prev: 
     sub: 
+    format: 
   - text: {fileID: 1644019853}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: a399d4a22260a5448ba04d5ec665e922, type: 2}
+    prev: 
     sub: 
+    format: 
   - text: {fileID: 43473097}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: ec1eaed08b2ecba4e851db1c1a8a3f10, type: 2}
+    prev: 
     sub: 
+    format: 
   - text: {fileID: 1212168578}
     variableRef:
       useConstant: 0
       constantValue: 0
       Variable: {fileID: 11400000, guid: 0099e87663baf8749b4577deb4b54829, type: 2}
+    prev: 'Score : '
     sub: 
+    format: 000000000
+  - text: {fileID: 1582050389}
+    variableRef:
+      useConstant: 0
+      constantValue: 0
+      Variable: {fileID: 11400000, guid: 1b4f1ef66c51ea148936af5d36ab414c, type: 2}
+    prev: 'Meilleur Score : '
+    sub: 
+    format: 000000000
 --- !u!1 &1399468478
 GameObject:
   m_ObjectHideFlags: 0
@@ -7008,69 +7079,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597038635}
   m_CullTransparentMesh: 1
---- !u!1 &1633547308
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1633547309}
-  - component: {fileID: 1633547310}
-  m_Layer: 0
-  m_Name: ScoreManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1633547309
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633547308}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1633547310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1633547308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84156fa70f76b48409da5abb5ae1ee68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreRef:
-    useConstant: 0
-    constantValue: 0
-    Variable: {fileID: 11400000, guid: 0099e87663baf8749b4577deb4b54829, type: 2}
-  shotsRef:
-    useConstant: 0
-    constantValue: 0
-    Variable: {fileID: 11400000, guid: 42e0ffd8912f06f47867b00d52dfe399, type: 2}
-  hitsRef:
-    useConstant: 0
-    constantValue: 0
-    Variable: {fileID: 11400000, guid: ec1eaed08b2ecba4e851db1c1a8a3f10, type: 2}
-  accuracyRef:
-    useConstant: 0
-    constantValue: 0
-    Variable: {fileID: 11400000, guid: 767b28fa701114e428206d7890244bac, type: 2}
-  fuelBurntRef:
-    useConstant: 0
-    constantValue: 0
-    Variable: {fileID: 11400000, guid: e52d3cd564f49064ca7dde77e627583d, type: 2}
 --- !u!1 &1644019851
 GameObject:
   m_ObjectHideFlags: 0
@@ -7704,7 +7712,7 @@ RectTransform:
   - {fileID: 1319429594}
   - {fileID: 1144388814}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7998,7 +8006,7 @@ RectTransform:
   - {fileID: 1183149690}
   - {fileID: 1494116821}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

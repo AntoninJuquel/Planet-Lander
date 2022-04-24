@@ -5,10 +5,12 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Reference<int> level;
+    [SerializeField] private Reference<int> level, scoreRef, bestScoreRef;
     [SerializeField] private Reference<float> timer;
     [SerializeField] private Reference<bool> landed, levelCleared, hasLife, hasFuel;
     [SerializeField] private GameState state;
+
+    [SerializeField] private Score score;
     private bool Playing => state == GameState.Playing;
     private bool Paused => state == GameState.Paused;
 
@@ -69,14 +71,15 @@ public class GameManager : MonoBehaviour
     {
         timer.Value = Time.time - _startTime;
 
-        
-
         if (!hasLife.Value || (landed.Value && !hasFuel.Value))
         {
             EventManager.Instance.Raise(new GameOverEvent(false));
         }
         else if (landed.Value && levelCleared.Value)
         {
+            scoreRef.Value = score.GetScore();
+            bestScoreRef.Value = scoreRef.Value > bestScoreRef.Value ? scoreRef.Value : bestScoreRef.Value;
+            PlayerPrefs.SetInt("BestScore", bestScoreRef.Value);
             EventManager.Instance.Raise(new GameOverEvent(true));
         }
     }
@@ -89,7 +92,8 @@ public class GameManager : MonoBehaviour
     public void StartGame(int levelIndex)
     {
         _startTime = Time.time;
-
+        scoreRef.Value = 0;
+        bestScoreRef.Value = PlayerPrefs.GetInt("BestScore", 0);
         level.Value = levelIndex;
         state = GameState.Playing;
         Time.timeScale = 1;
@@ -143,4 +147,28 @@ public enum GameState
     Paused,
     Win,
     Lose,
+}
+
+[System.Serializable]
+internal struct ScoreElement<T>
+{
+    public Reference<T> variable;
+    public T constant;
+}
+
+[System.Serializable]
+internal class Score
+{
+    [SerializeField] private ScoreElement<int> kills, lives;
+    [SerializeField] private ScoreElement<float> timer, fuel, fuelBurnt, accuracy;
+
+    public int GetScore()
+    {
+        var killScore = kills.variable * kills.constant;
+        var timeScore = timer.constant / (timer.constant + timer.variable);
+        var fuelScore = (fuel.constant + fuel.variable) / (fuelBurnt.constant + fuelBurnt.variable);
+        var livesScore = lives.constant * lives.variable;
+
+        return (int) ((killScore + timeScore + fuelScore + livesScore) * accuracy.variable);
+    }
 }
