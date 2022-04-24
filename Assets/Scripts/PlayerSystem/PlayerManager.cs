@@ -8,6 +8,7 @@ namespace PlayerSystem
     {
         [SerializeField] private int maxLives;
         [SerializeField] private Reference<int> lives;
+        [SerializeField] private Reference<float> fuelRef, maxFuelRef;
         [SerializeField] private Player playerPrefab;
         private Player _player;
 
@@ -38,6 +39,7 @@ namespace PlayerSystem
         private void StartGameHandler(StartGameEvent e)
         {
             lives.Value = maxLives;
+            fuelRef.Value = maxFuelRef.Value;
             Invoke(nameof(SpawnPlayer), .1f);
         }
 

@@ -22,8 +22,6 @@ namespace PlayerSystem
             _rb = GetComponent<Rigidbody2D>();
             _spaceshipLandedEvent = new SpaceshipLandedEvent(transform);
             _spaceshipTookOffEvent = new SpaceshipTookOffEvent(transform);
-
-            fuelRef.Value = maxFuelRef;
         }
 
         private void FixedUpdate()
