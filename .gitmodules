@@ -7,3 +7,6 @@
 [submodule "Assets/Scripts/ReferenceSharing"]
 	path = Assets/Scripts/ReferenceSharing
 	url = https://github.com/AntoninJuquel/ReferenceSharing
+[submodule "Assets/Scripts/MessagingSystem"]
+	path = Assets/Scripts/MessagingSystem
+	url = https://github.com/AntoninJuquel/MessagingSystem
