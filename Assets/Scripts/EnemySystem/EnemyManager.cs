@@ -15,12 +15,14 @@ namespace EnemySystem
         private Dictionary<Transform, Enemy> _enemies = new Dictionary<Transform, Enemy>();
         private Transform _player;
         private int PresetIndex => levelRef.Value % wavePresets.Length;
+        private Coroutine _spawnRoutine;
 
         private void OnEnable()
         {
             EventManager.Instance.AddListener<StartGameEvent>(StartGameHandler);
             EventManager.Instance.AddListener<PlayerSpawnEvent>(PlayerSpawnHandler);
             EventManager.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
+            EventManager.Instance.AddListener<MainMenuEvent>(MainMenuHandler);
         }
 
         private void OnDisable()
@@ -28,6 +30,7 @@ namespace EnemySystem
             EventManager.Instance.RemoveListener<StartGameEvent>(StartGameHandler);
             EventManager.Instance.RemoveListener<PlayerSpawnEvent>(PlayerSpawnHandler);
             EventManager.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
+            EventManager.Instance.RemoveListener<MainMenuEvent>(MainMenuHandler);
         }
 
         private void SpawnEnemy(Enemy enemy, Vector3 position)
@@ -45,12 +48,25 @@ namespace EnemySystem
             kills.Value++;
         }
 
+        private void KillAll()
+        {
+            if (_spawnRoutine != null) StopCoroutine(_spawnRoutine);
+            var enemies = _enemies.Keys.ToArray();
+
+            for (var i = enemies.Length - 1; i >= 0; i--)
+            {
+                DestroyEnemy(enemies[i]);
+            }
+
+            _enemies = new Dictionary<Transform, Enemy>();
+        }
+
         private void NewWave()
         {
             waveNumber.Value = 0;
             _currentKill = 0;
             kills.Value = 0;
-            StartCoroutine(SpawnWave(wavePresets[PresetIndex]));
+            _spawnRoutine = StartCoroutine(SpawnWave(wavePresets[PresetIndex]));
         }
 
         private IEnumerator SpawnWave(WavePreset wavePreset)
@@ -86,14 +102,7 @@ namespace EnemySystem
 
         private void StartGameHandler(StartGameEvent e)
         {
-            var enemies = _enemies.Keys.ToArray();
-
-            for (var i = enemies.Length - 1; i >= 0; i--)
-            {
-                DestroyEnemy(enemies[i]);
-            }
-
-            _enemies = new Dictionary<Transform, Enemy>();
+            KillAll();
             NewWave();
         }
 
@@ -112,6 +121,11 @@ namespace EnemySystem
             {
                 DestroyEnemy(e.Transform);
             }
+        }
+
+        private void MainMenuHandler(MainMenuEvent e)
+        {
+            KillAll();
         }
     }
 }
