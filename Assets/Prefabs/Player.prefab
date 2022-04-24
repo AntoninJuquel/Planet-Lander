@@ -258,10 +258,6 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     Variable: {fileID: 11400000, guid: e52d3cd564f49064ca7dde77e627583d, type: 2}
-  maxFuelRef:
-    useConstant: 0
-    constantValue: 0
-    Variable: {fileID: 11400000, guid: eeddf8d29c89f98448b63cd4a74d6973, type: 2}
   speedRef:
     useConstant: 0
     constantValue: 0
@@ -270,6 +266,14 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     Variable: {fileID: 11400000, guid: ed26b36726dc4124bb4c6c7f90d04e52, type: 2}
+  landed:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 7020563513ad67e47b0fb33d4744a590, type: 2}
+  hasFuel:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: d26f3cd4b6e93a349be16af3dce43904, type: 2}
 --- !u!114 &4588011128215076300
 MonoBehaviour:
   m_ObjectHideFlags: 0
