@@ -24,7 +24,7 @@ namespace Entities
         private void Awake()
         {
             _entityKilledEvent = new EntityKilledEvent(transform);
-            health.Value = maxHealth;
+            health.Value = maxHealth.Value;
         }
 
         private void Die()
@@ -35,7 +35,7 @@ namespace Entities
         private void TakeDamage(int amount)
         {
             health.Value -= amount;
-            EventManager.Instance.Raise(new EntityDamagedEvent(transform, health.Value, maxHealth));
+            EventManager.Instance.Raise(new EntityDamagedEvent(transform, health.Value, maxHealth.Value));
             if (health.Value <= 0) Die();
         }
 
