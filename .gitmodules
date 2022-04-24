@@ -13,3 +13,6 @@
 [submodule "Assets/Scripts/ScreenNavigation"]
 	path = Assets/Scripts/ScreenNavigation
 	url = https://github.com/AntoninJuquel/ScreenNavigation
+[submodule "Assets/Scripts/AudioSystem"]
+	path = Assets/Scripts/AudioSystem
+	url = https://github.com/AntoninJuquel/AudioSystem
