@@ -187,7 +187,7 @@ DistanceJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 0
   m_Distance: 0.005
-  m_MaxDistanceOnly: 0
+  m_MaxDistanceOnly: 1
 --- !u!1001 &3818390064680750293
 PrefabInstance:
   m_ObjectHideFlags: 0

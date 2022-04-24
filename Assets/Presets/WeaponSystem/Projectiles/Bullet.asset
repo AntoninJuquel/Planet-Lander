@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bullet
   m_EditorClassIdentifier: 
   size: 0.25
-  sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  sprite: {fileID: 21300000, guid: 80ec0ba795e31f44ebf3bd6fcba1ab02, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   gravity: 0
   colorOverLifetime:
@@ -51,7 +51,7 @@ MonoBehaviour:
     burstCount: 30
     speed: 0
     size: 0.1
-    sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+    sprite: {fileID: 21300000, guid: 80ec0ba795e31f44ebf3bd6fcba1ab02, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
     gravity: 0
     colorOverLifetime:
