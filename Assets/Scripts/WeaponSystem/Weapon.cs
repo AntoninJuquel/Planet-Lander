@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
+using Event = MessagingSystem.Event;
 
 namespace WeaponSystem
 {
@@ -10,7 +11,7 @@ namespace WeaponSystem
     {
         [SerializeField] private List<WeaponPreset> weapons;
         [SerializeField] private ParticleSystem subEmitter;
-        [SerializeField] private Reference<int> shots, hit;
+        [SerializeField] private Reference<int> shots, hits;
         [SerializeField] private Reference<float> accuracy;
         private ParticleSystem _ps;
         private int _index;
@@ -49,12 +50,12 @@ namespace WeaponSystem
             for (var i = 0; i < events; i++)
             {
                 if (other.CompareTag("Enemy"))
-                    hit.Value++;
+                    hits.Value++;
                 Debug.Log("Hit " + other.name);
                 EventManager.Instance.Raise(new ProjectileHitEvent(other.transform, CurrentWeapon.damage));
             }
 
-            accuracy.Value = (float) hit.Value / (float) shots.Value;
+            accuracy.Value = (float) hits.Value / (float) shots.Value;
         }
 
         private void Fire()
@@ -67,7 +68,7 @@ namespace WeaponSystem
 
             CurrentWeapon.magazine--;
             shots.Value++;
-            accuracy.Value = (float) hit.Value / (float) shots.Value;
+            accuracy.Value = (float) hits.Value / (float) shots.Value;
         }
 
         private IEnumerator ShootRoutine()
