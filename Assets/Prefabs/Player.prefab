@@ -266,6 +266,14 @@ MonoBehaviour:
     useConstant: 0
     constantValue: 0
     Variable: {fileID: 11400000, guid: ed26b36726dc4124bb4c6c7f90d04e52, type: 2}
+  forceInputRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: c0360268dd845b54c83d19e6f467fd88, type: 2}
+  torqueInputRef:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 14438e456bc8ba646907f18ac4f57ba5, type: 2}
   landed:
     useConstant: 0
     constantValue: 0
@@ -286,6 +294,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f57fd101da4f014d93e217703c6cea9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceInput:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: c0360268dd845b54c83d19e6f467fd88, type: 2}
+  torqueInput:
+    useConstant: 0
+    constantValue: 0
+    Variable: {fileID: 11400000, guid: 14438e456bc8ba646907f18ac4f57ba5, type: 2}
   mainWeapon: {fileID: 478854342676726495}
   counterMeasures: {fileID: 4545811701871880992}
 --- !u!114 &4588011128215076290
@@ -5309,7 +5325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: ShapeModule.m_Position.y
-      value: -0.1
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: ShapeModule.m_Rotation.x
