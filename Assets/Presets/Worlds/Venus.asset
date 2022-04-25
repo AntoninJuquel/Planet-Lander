@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b2e40fd234249d4acc321534cac7f62, type: 3}
-  m_Name: Jupiter
+  m_Name: Venus
   m_EditorClassIdentifier: 
-  gravity: -24.79
+  gravity: -8.87
   step: {x: 1, y: 3}
   height: {x: -1, y: 1}
   worldDeformations:

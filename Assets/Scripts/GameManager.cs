@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         {
             scoreRef.Value = score.GetScore();
             bestScoreRef.Value = scoreRef.Value > bestScoreRef.Value ? scoreRef.Value : bestScoreRef.Value;
-            PlayerPrefs.SetInt("BestScore", bestScoreRef.Value);
+            PlayerPrefs.SetInt("BestScore" + level.Value, bestScoreRef.Value);
             EventManager.Instance.Raise(new GameOverEvent(true));
         }
     }
@@ -93,10 +93,10 @@ public class GameManager : MonoBehaviour
     {
         _startTime = Time.time;
         scoreRef.Value = 0;
-        bestScoreRef.Value = PlayerPrefs.GetInt("BestScore", 0);
         level.Value = levelIndex;
         state = GameState.Playing;
         Time.timeScale = 1;
+        bestScoreRef.Value = PlayerPrefs.GetInt("BestScore" + level.Value, 0);
         EventManager.Instance.Raise(new StartGameEvent());
     }
 
@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
     public void MainMenu()
     {
         state = GameState.Menu;
+        Time.timeScale = 1;
         EventManager.Instance.Raise(new MainMenuEvent());
     }
 

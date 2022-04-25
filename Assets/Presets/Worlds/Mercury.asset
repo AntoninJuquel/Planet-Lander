@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43ad00f5b683ec4b9ab78b788e2ecb2, type: 3}
-  m_Name: Mars
+  m_Script: {fileID: 11500000, guid: 3b2e40fd234249d4acc321534cac7f62, type: 3}
+  m_Name: Mercury
   m_EditorClassIdentifier: 
-  waves:
-  - enemyNumber: 1
-    spawnRate: 0.5
-    enemies:
-    - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
-    timeDelay: 0
-    waitKill: 0
-    waitTime: 0
+  gravity: -3.7
+  step: {x: 1, y: 3}
+  height: {x: -1, y: 1}
+  worldDeformations:
+  - chance: 0.25
+    width: {x: 3, y: 6}
+    depth: {x: -3, y: -7}
+    resolution: {x: 3, y: 6}

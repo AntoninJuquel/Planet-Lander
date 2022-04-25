@@ -90,7 +90,7 @@ namespace EnemySystem
                     SpawnEnemy(wave.enemies[choice], Vector3.up * 20);
                 }
 
-                if (wave.waitKill)
+                if (wave.waitKill || waveNumber.Value == wavePreset.waves.Length)
                 {
                     yield return new WaitUntil(() => _currentKill >= killToConfirmWave);
                     _currentKill = 0;
