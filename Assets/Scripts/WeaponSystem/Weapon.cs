@@ -43,6 +43,8 @@ namespace WeaponSystem
 
         private void Fire()
         {
+            EventManager.Instance.Raise(new WeaponShotEvent());
+
             foreach (var firePoint in CurrentWeapon.firePoints)
             {
                 AdjustParticles(firePoint);

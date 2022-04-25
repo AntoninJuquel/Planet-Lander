@@ -1,4 +1,5 @@
 using MessagingSystem;
+using ReferenceSharing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using WeaponSystem;
@@ -7,17 +8,16 @@ namespace PlayerSystem
 {
     public class Player : MonoBehaviour
     {
+        [SerializeField] private Reference<float> forceInput, torqueInput;
         [SerializeField] private Weapon mainWeapon, counterMeasures;
         private Gamepad _input;
         private PlayerSpawnEvent _playerSpawnEvent;
-        private Spaceship _spaceship;
 
         private void Awake()
         {
             _input = Gamepad.current;
             _playerSpawnEvent = new PlayerSpawnEvent(transform);
             mainWeapon = GetComponentInChildren<Weapon>();
-            _spaceship = GetComponent<Spaceship>();
         }
 
         private void Start()
@@ -27,8 +27,8 @@ namespace PlayerSystem
 
         private void Update()
         {
-            _spaceship.AddForce(_input.rightTrigger.ReadValue());
-            _spaceship.AddTorque(_input.leftStick.ReadValue().x);
+            forceInput.Value = _input.rightTrigger.ReadValue();
+            torqueInput.Value = _input.leftStick.ReadValue().x;
 
             if (_input.buttonSouth.isPressed)
             {

@@ -7,9 +7,8 @@ namespace PlayerSystem
     public class Spaceship : MonoBehaviour
     {
         [SerializeField] private float forceSpeed, torqueSpeed, crashSpeed, maxSpeed, burnRate;
-        [SerializeField] private Reference<float> fuelRef, fuelBurntRef, speedRef, altitudeRef;
+        [SerializeField] private Reference<float> fuelRef, fuelBurntRef, speedRef, altitudeRef, forceInputRef, torqueInputRef;
         [SerializeField] private Reference<bool> landed, hasFuel;
-        private float _forceInput, _torqueInput;
         private Rigidbody2D _rb;
         private SpaceshipLandedEvent _spaceshipLandedEvent;
         private SpaceshipTookOffEvent _spaceshipTookOffEvent;
@@ -28,8 +27,8 @@ namespace PlayerSystem
         {
             if (hasFuel.Value)
             {
-                _rb.AddForce(transform.up * forceSpeed * _forceInput);
-                if (_forceInput != 0)
+                _rb.AddForce(transform.up * forceSpeed * forceInputRef);
+                if (forceInputRef != 0)
                 {
                     fuelRef.Value -= burnRate * Time.deltaTime;
                     fuelBurntRef.Value += burnRate * Time.deltaTime;
@@ -41,7 +40,7 @@ namespace PlayerSystem
                     }
                 }
 
-                _rb.angularVelocity = -_torqueInput * torqueSpeed * (_forceInput != 0 ? .5f : 1);
+                _rb.angularVelocity = -torqueInputRef * torqueSpeed * (forceInputRef != 0 ? .5f : 1);
             }
 
             hasFuel.Value = fuelRef.Value > 0;
@@ -49,7 +48,7 @@ namespace PlayerSystem
             altitudeRef.Value = Mathf.Ceil(transform.position.y * 100);
             speedRef.Value = Mathf.Ceil(_rb.velocity.magnitude * 100);
 
-            _rb.drag = _forceInput;
+            _rb.drag = forceInputRef;
         }
 
         private void OnCollisionEnter2D(Collision2D col)
@@ -72,16 +71,6 @@ namespace PlayerSystem
             if (landed.Value || _rb.velocity != Vector2.zero) return;
             landed.Value = true;
             EventManager.Instance.Raise(_spaceshipLandedEvent);
-        }
-
-        public void AddForce(float input)
-        {
-            _forceInput = input;
-        }
-
-        public void AddTorque(float input)
-        {
-            _torqueInput = input;
         }
     }
 }
