@@ -1,20 +1,69 @@
-﻿using System.Collections;
-using AudioSystem;
+﻿using AudioSystem;
 using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
+[System.Serializable]
+public struct OneShotAudio
+{
+    [SerializeField] private AudioClip[] clips;
+    [SerializeField] private AudioSource source;
+    [SerializeField] [Range(0, 1)] private float scale;
+    [SerializeField] private bool music;
+
+    public void Play()
+    {
+        Play(Random.Range(0, clips.Length));
+    }
+
+    public void Play(int index)
+    {
+        index %= clips.Length;
+        if (music)
+            AudioManager.PlayOneShotMusic(source, clips[index], scale);
+        else
+            AudioManager.PlayOneShotSound(source, clips[index], scale);
+    }
+}
+
+[System.Serializable]
+public struct LoopingAudio
+{
+    [SerializeField] private AudioSource[] sources;
+    [SerializeField] [Range(0, 1)] private float scale;
+    [SerializeField] private bool music;
+    private int _playingIndex;
+
+    public void Play()
+    {
+        Play(Random.Range(0, sources.Length));
+    }
+
+    public void Play(int index)
+    {
+        index %= sources.Length;
+        _playingIndex = index;
+        if (music)
+            AudioManager.PlayLoopingMusic(sources[index], scale);
+        else
+            AudioManager.PlayLoopingSound(sources[index], scale);
+    }
+
+    public void Stop()
+    {
+        if (music)
+            AudioManager.StopLoopingMusic(sources[_playingIndex]);
+        else
+            AudioManager.StopLoopingSound(sources[_playingIndex]);
+    }
+}
 
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] private Reference<float> forceInput;
     [SerializeField] private Reference<int> levelRef;
-    [SerializeField] private AudioClip winJingleClip, loseJingleClip;
-    [SerializeField] private AudioClip[] weaponShotClips, projectileHitClips, thrusterClips, entityKilledClips, spaceshipCrashedClips;
-    [SerializeField] private AudioSource menuThemeSource, jingleAudioSource, spaceshipThrusterAudioSource, weaponShotAudioSource, projectileHitAudioSource, entityKilledAudioSource, spaceshipCrashedAudioSource;
-    [SerializeField] private AudioSource[] musicAudioSources, spaceshipEngineAudioSources;
-    private int _spaceShipEngineIndex;
+    [SerializeField] private LoopingAudio musicAudio, spaceshipEngineAudio, thrusterAudio;
+    [SerializeField] private OneShotAudio weaponShotAudio, projectileHitAudio, entityKilledAudio, spaceshipCrashedAudio, jingleAudio;
 
     private void OnEnable()
     {
@@ -25,6 +74,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.AddListener<ProjectileHitEvent>(ProjectileHitHandler);
         EventManager.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
         EventManager.Instance.AddListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
+        EventManager.Instance.AddListener<TogglePauseEvent>(TogglePauseHandler);
     }
 
     private void OnDisable()
@@ -36,6 +86,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.RemoveListener<ProjectileHitEvent>(ProjectileHitHandler);
         EventManager.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
         EventManager.Instance.RemoveListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
+        EventManager.Instance.RemoveListener<TogglePauseEvent>(TogglePauseHandler);
     }
 
     private void Awake()
@@ -43,71 +94,75 @@ public class SoundManager : MonoBehaviour
         AudioManager.PauseSoundsOnApplicationPause = false;
     }
 
+    private bool _thrusterPlaying;
+
     private void Update()
     {
-        spaceshipThrusterAudioSource.volume = forceInput.Value;
-    }
-
-    private void PlayMusic(int index)
-    {
-        PlayMusic(musicAudioSources[index]);
-    }
-
-    private void PlayMusic(AudioSource musicAudioSource)
-    {
-        musicAudioSource.PlayLoopingMusicManaged(.25f, 1f, false);
-    }
-
-    private void PlayJingle(AudioClip jingleAudioCLip)
-    {
-        jingleAudioSource.PlayOneShotSoundManaged(jingleAudioCLip, .5f);
-    }
-
-    private void PlaySpaceshipEngine()
-    {
-        _spaceShipEngineIndex = Random.Range(0, spaceshipEngineAudioSources.Length);
-        spaceshipEngineAudioSources[_spaceShipEngineIndex].PlayLoopingSoundManaged(.05f, 1f);
+        if (forceInput.Value == 0)
+        {
+            _thrusterPlaying = false;
+            thrusterAudio.Stop();
+        }
+        else if (!_thrusterPlaying)
+        {
+            _thrusterPlaying = true;
+            thrusterAudio.Play();
+        }
     }
 
     private void MainMenuHandler(MainMenuEvent e)
     {
-        spaceshipEngineAudioSources[_spaceShipEngineIndex].Stop();
-        PlayMusic(menuThemeSource);
-        spaceshipThrusterAudioSource.Stop();
+        spaceshipEngineAudio.Stop();
+        musicAudio.Play(0);
     }
 
     private void StartGameHandler(StartGameEvent e)
     {
-        PlayMusic(levelRef.Value % musicAudioSources.Length);
-        spaceshipThrusterAudioSource.clip = thrusterClips[Random.Range(0, thrusterClips.Length)];
-        spaceshipThrusterAudioSource.Play();
-        PlaySpaceshipEngine();
+        spaceshipEngineAudio.Play();
+        musicAudio.Play(levelRef.Value + 1);
     }
 
     private void GameOverHandler(GameOverEvent e)
     {
         AudioManager.StopAll();
-        PlayJingle(e.Win ? winJingleClip : loseJingleClip);
-        spaceshipThrusterAudioSource.Stop();
+        jingleAudio.Play(e.Win ? 0 : 1);
     }
 
     private void WeaponShotHandler(WeaponShotEvent e)
     {
-        AudioManager.PlayOneShotSound(weaponShotAudioSource, weaponShotClips[Random.Range(0, weaponShotClips.Length)], 1f);
+        weaponShotAudio.Play();
     }
 
     private void ProjectileHitHandler(ProjectileHitEvent e)
     {
-        AudioManager.PlayOneShotSound(projectileHitAudioSource, projectileHitClips[Random.Range(0, projectileHitClips.Length)], 1f);
+        projectileHitAudio.Play();
     }
 
     private void EntityKilledHandler(EntityKilledEvent e)
     {
-        AudioManager.PlayOneShotSound(entityKilledAudioSource, entityKilledClips[Random.Range(0, entityKilledClips.Length)], 1f);
+        entityKilledAudio.Play();
     }
 
     private void SpaceshipCrashedHandler(SpaceshipCrashedEvent e)
     {
-        AudioManager.PlayOneShotSound(spaceshipCrashedAudioSource, spaceshipCrashedClips[Random.Range(0, spaceshipCrashedClips.Length)], 1f);
+        spaceshipCrashedAudio.Play();
+    }
+
+    private void TogglePauseHandler(TogglePauseEvent e)
+    {
+        if (e.Paused)
+            AudioManager.PauseAll();
+        else
+            AudioManager.ResumeAll();
+    }
+
+    public void SetMusicVolume(float value)
+    {
+        AudioManager.MusicVolume = value;
+    }
+
+    public void SetSoundVolume(float value)
+    {
+        AudioManager.SoundVolume = value;
     }
 }
