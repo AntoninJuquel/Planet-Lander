@@ -4,7 +4,7 @@ using ReferenceSharing;
 using UnityEngine;
 
 [System.Serializable]
-public struct OneShotAudio
+internal struct OneShotAudio
 {
     [SerializeField] private AudioClip[] clips;
     [SerializeField] private AudioSource source;
@@ -27,7 +27,7 @@ public struct OneShotAudio
 }
 
 [System.Serializable]
-public struct LoopingAudio
+internal struct LoopingAudio
 {
     [SerializeField] private AudioSource[] sources;
     [SerializeField] [Range(0, 1)] private float scale;
@@ -60,10 +60,16 @@ public struct LoopingAudio
 
 public class SoundManager : MonoBehaviour
 {
+    #region Serialize Fields
+
     [SerializeField] private Reference<float> forceInput;
     [SerializeField] private Reference<int> levelRef;
     [SerializeField] private LoopingAudio musicAudio, spaceshipEngineAudio, thrusterAudio;
     [SerializeField] private OneShotAudio weaponShotAudio, projectileHitAudio, entityKilledAudio, spaceshipCrashedAudio, jingleAudio;
+
+    #endregion
+    
+    #region Unity Methods
 
     private void OnEnable()
     {
@@ -110,6 +116,10 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Event Handlers
+
     private void MainMenuHandler(MainMenuEvent e)
     {
         spaceshipEngineAudio.Stop();
@@ -120,6 +130,14 @@ public class SoundManager : MonoBehaviour
     {
         spaceshipEngineAudio.Play();
         musicAudio.Play(levelRef.Value + 1);
+    }
+
+    private void TogglePauseHandler(TogglePauseEvent e)
+    {
+        if (e.Paused)
+            AudioManager.PauseAll();
+        else
+            AudioManager.ResumeAll();
     }
 
     private void GameOverHandler(GameOverEvent e)
@@ -148,13 +166,9 @@ public class SoundManager : MonoBehaviour
         spaceshipCrashedAudio.Play();
     }
 
-    private void TogglePauseHandler(TogglePauseEvent e)
-    {
-        if (e.Paused)
-            AudioManager.PauseAll();
-        else
-            AudioManager.ResumeAll();
-    }
+    #endregion
+
+    #region Public Methods
 
     public void SetMusicVolume(float value)
     {
@@ -165,4 +179,6 @@ public class SoundManager : MonoBehaviour
     {
         AudioManager.SoundVolume = value;
     }
+
+    #endregion
 }
