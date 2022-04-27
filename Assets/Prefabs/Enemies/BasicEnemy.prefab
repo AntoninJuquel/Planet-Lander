@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7138307105026602179}
   - component: {fileID: -3725329972264005884}
-  - component: {fileID: 1782907862400211148}
+  - component: {fileID: -8905204130762834523}
   - component: {fileID: 7138307105026602177}
   - component: {fileID: 7138307105026602176}
   - component: {fileID: 7138307105026602191}
+  - component: {fileID: 5093792847419523265}
   m_Layer: 0
-  m_Name: TacticalEnemy
+  m_Name: BasicEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +57,7 @@ MonoBehaviour:
     useConstant: 1
     constantValue: 3
     Variable: {fileID: 0}
---- !u!114 &1782907862400211148
+--- !u!114 &-8905204130762834523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7138307105026602189}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf667ea39db4abd9c0f84575648f4fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 980bb1d660748c24f8b5a5f56d8cdd8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
@@ -110,8 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f08ad220eb7aad34293e386d75e1cd40, type: 3}
-  m_Color: {r: 0, g: 0.8958945, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ea37635153d6e054e85d2f300afb9c2a, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,6 +169,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!232 &5093792847419523265
+DistanceJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7138307105026602189}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 0.005
+  m_MaxDistanceOnly: 1
 --- !u!1001 &3818390064680750293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -182,7 +202,7 @@ PrefabInstance:
     - target: {fileID: 1676892885569777804, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: weapons.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 57c22b42a3b6d0a4b9d3584739273fd5, type: 2}
+      objectReference: {fileID: 11400000, guid: e60c5af5a2bfa494e802d7d3b20b797e, type: 2}
     - target: {fileID: 5866777019467429550, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: m_Name
       value: Weapon

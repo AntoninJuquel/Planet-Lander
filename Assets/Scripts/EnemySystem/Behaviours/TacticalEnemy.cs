@@ -1,36 +1,47 @@
+﻿using System.Collections;
 using UnityEngine;
+using WeaponSystem;
 
 namespace EnemySystem.Behaviours
 {
     public class TacticalEnemy : Enemy
     {
-        private DistanceJoint2D _distance;
+        private Weapon _weapon;
 
         protected override void Awake()
         {
             base.Awake();
-            _distance = GetComponent<DistanceJoint2D>();
-            _distance.distance = Range - .1f;
+            _weapon = GetComponentInChildren<Weapon>();
         }
 
-        protected override void Attack()
+        protected override IEnumerator AttackRoutine()
         {
-        }
+            var fixedUpdate = new WaitForFixedUpdate();
+            while (Target && InAttackRange)
+            {
+                var position = Target.position + (Vector3) Random.insideUnitCircle * range;
+                var time = Vector2.Distance(position, transform.position) / speed;
+                transform.up = (position - transform.position).normalized;
 
-        protected override void Move()
-        {
-            transform.up = TargetDirection;
-            if (InAttackRange)
-            {
-                _distance.enabled = true;
-                _distance.connectedAnchor = Target.position;
-                Rb.velocity = transform.right * Speed;
+                while (time > 0 && InAttackRange)
+                {
+                    Rb.velocity = (position - transform.position).normalized * speed;
+                    time -= Time.fixedDeltaTime;
+                    yield return fixedUpdate;
+                }
+
+                time = 2f;
+                while (time > 0 && InAttackRange)
+                {
+                    Rb.velocity = Vector2.zero;
+                    LookTarget();
+                    _weapon.Shoot();
+                    time -= Time.fixedDeltaTime;
+                    yield return fixedUpdate;
+                }
             }
-            else
-            {
-                _distance.enabled = false;
-                Rb.velocity = transform.up * Speed;
-            }
+
+            State = State.Chasing;
         }
     }
 }

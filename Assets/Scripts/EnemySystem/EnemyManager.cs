@@ -17,6 +17,7 @@ namespace EnemySystem
         private Transform _player;
         private int PresetIndex => levelRef.Value % wavePresets.Length;
         private Coroutine _spawnRoutine;
+        private Camera _mainCamera;
 
         private void OnEnable()
         {
@@ -36,6 +37,11 @@ namespace EnemySystem
             EventManager.Instance.RemoveListener<GameOverEvent>(GameOverHandler);
         }
 
+        private void Awake()
+        {
+            _mainCamera = Camera.main;
+        }
+
         private void SpawnEnemy(Enemy enemy, Vector3 position)
         {
             var newEnemy = Instantiate(enemy, position, Quaternion.identity).GetComponent<Enemy>();
@@ -43,12 +49,13 @@ namespace EnemySystem
             _enemies.Add(newEnemy.transform, newEnemy);
         }
 
-        private void DestroyEnemy(Transform enemy)
+        private void DestroyEnemy(Transform enemy, bool killCount)
         {
             Destroy(_enemies[enemy].gameObject);
             _enemies.Remove(enemy);
             _currentKill++;
-            kills.Value++;
+            if (killCount)
+                kills.Value++;
         }
 
         private void KillAll()
@@ -58,7 +65,7 @@ namespace EnemySystem
 
             for (var i = enemies.Length - 1; i >= 0; i--)
             {
-                DestroyEnemy(enemies[i]);
+                DestroyEnemy(enemies[i], false);
             }
 
             _enemies = new Dictionary<Transform, Enemy>();
@@ -80,14 +87,15 @@ namespace EnemySystem
             {
                 waveNumber.Value++;
                 killToConfirmWave += wave.enemyNumber;
-                EventManager.Instance.Raise(new NewWaveEvent());
+                EventManager.Instance.Raise(new NewWaveEvent(wave.timeDelay));
                 yield return new WaitForSeconds(wave.timeDelay);
 
                 for (var i = 0; i < wave.enemyNumber; i++)
                 {
                     yield return new WaitForSeconds(1f / wave.spawnRate);
                     var choice = Random.Range(0, wave.enemies.Length);
-                    SpawnEnemy(wave.enemies[choice], Vector3.up * 20);
+                    var position = (Vector2) _mainCamera.ViewportToWorldPoint(new Vector3(Random.Range(0f, 1f), Random.Range(1.5f, 2f)));
+                    SpawnEnemy(wave.enemies[choice], position);
                 }
 
                 if (wave.waitKill || waveNumber.Value == wavePreset.waves.Length)
@@ -98,7 +106,7 @@ namespace EnemySystem
                 }
 
                 levelCleared.Value = waveNumber.Value == wavePreset.waves.Length;
-                EventManager.Instance.Raise(new WaveClearedEvent());
+                EventManager.Instance.Raise(new WaveClearedEvent(wave.waitTime));
                 yield return new WaitForSeconds(wave.waitTime);
             }
 
@@ -124,7 +132,7 @@ namespace EnemySystem
         {
             if (_enemies.ContainsKey(e.Transform))
             {
-                DestroyEnemy(e.Transform);
+                DestroyEnemy(e.Transform, e.KillCount);
             }
         }
 

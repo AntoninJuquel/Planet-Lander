@@ -11,11 +11,9 @@ namespace EnemySystem
     [System.Serializable]
     public struct Wave
     {
-        public int enemyNumber;
+        public int enemyNumber, timeDelay, waitTime;
         public float spawnRate;
         public Enemy[] enemies;
-        public float timeDelay;
         public bool waitKill;
-        public float waitTime;
     }
 }
