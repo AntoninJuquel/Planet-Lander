@@ -8,6 +8,9 @@ namespace WorldGeneration
         public float gravity;
         public Vector2 step, height;
         public WorldDeformation[] worldDeformations;
+
+        public NoiseSettings[] noiseSettings;
+        public Color backgroundColor;
     }
 
     [System.Serializable]
@@ -15,5 +18,13 @@ namespace WorldGeneration
     {
         public float chance;
         public Vector2 width, depth, resolution;
+    }
+
+    [System.Serializable]
+    public struct NoiseSettings
+    {
+        public string name;
+        public float strength;
+        public float roughness;
     }
 }

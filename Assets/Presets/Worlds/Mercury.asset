@@ -20,3 +20,14 @@ MonoBehaviour:
     width: {x: 3, y: 6}
     depth: {x: -3, y: -7}
     resolution: {x: 3, y: 6}
+  noiseSettings:
+  - name: gradient
+    strength: 0.05
+    roughness: 1
+  - name: voronoi
+    strength: 1
+    roughness: 0.04
+  - name: simpleNoise
+    strength: -0.25
+    roughness: 5
+  backgroundColor: {r: 1, g: 1, b: 0, a: 1}

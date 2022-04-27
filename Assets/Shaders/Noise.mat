@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Noise
+  m_Shader: {fileID: -6465566751694194690, guid: f2354c666d7cc40409d03a061d110e3a, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 038df6058ec825d4380553cf4e2ebf4b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Boolean_8c1071dbff9a4cbdb70c4a77298984aa: 1
+    - Vector1_1d8a4cd1c3e241738da1aca8e6bba587: 1
+    - Vector1_2f0a94e2ae0a4dcf9fd438f9d9731438: 0.07
+    - Vector1_31d90a6feca746f7908c938c6c12c983: 0.41
+    - Vector1_6736151cd9774e08aa548b0afc0398a1: 0.71
+    - Vector1_713ab1174fd3440a829c480cf534d523: 5.6
+    - Vector1_d80f4a871806403fbab59374e8d80e06: 0.41
+    - _blend: 1
+    - _gradient: 1
+    - _gradientNoiseRoughness: 0
+    - _gradientNoiseStrength: 0.14
+    - _gradientRoughness: 0.3
+    - _gradientStrength: 0.5
+    - _gradient_1: 1
+    - _gradient_2: 1
+    - _simpleNoise: 1
+    - _simpleNoiseRoughness: 3
+    - _simpleNoiseStrength: 0.5
+    - _voronoi: 1
+    - _voronoiDisplacement: 360
+    - _voronoiRoughness: 0
+    - _voronoiStrength: 0
+    m_Colors:
+    - Color_fc033ea1327f43a3a21504c01cb44c67: {r: 0.8938236, g: 0, b: 1, a: 1}
+    - Color_fc033ea1327f43a3a21504c01cb44c67_1: {r: 1, g: 1, b: 1, a: 1}
+    - Color_fc033ea1327f43a3a21504c01cb44c67_2: {r: 1, g: 0, b: 0.079761505, a: 1}
+    - Vector2_1: {r: -1.61, g: 0, b: 0, a: 0}
+    - Vector2_2: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_3: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_3bbaf0f0fd8948ad92ef482191871a28: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_4: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_5: {r: 1, g: 1, b: 0, a: 0}
+    - _gradientColor: {r: 0, g: 0, b: 0, a: 1}
+    - _gradientNoiseTiling: {r: 1, g: 1, b: 0, a: 0}
+    - _gradientOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _gradientTiling: {r: 50, g: 50, b: 0, a: 0}
+    - _posterizeStrength: {r: 50, g: 50, b: 50, a: 4}
+    - _simpleNoiseColor: {r: 0, g: 0, b: 0, a: 1}
+    - _simpleNoiseOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _simpleNoiseTilling: {r: 50, g: 50, b: 0, a: 0}
+    - _voronoiColor: {r: 0, g: 0, b: 0, a: 1}
+    - _voronoiOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _voronoiTiling: {r: 50, g: 50, b: 0, a: 0}
+  m_BuildTextureStacks: []
