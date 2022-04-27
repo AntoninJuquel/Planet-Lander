@@ -7,7 +7,6 @@ namespace Entities
     public class Health : MonoBehaviour
     {
         [SerializeField] private Reference<int> maxHealth, health;
-        private EntityKilledEvent _entityKilledEvent;
 
         private void OnEnable()
         {
@@ -23,13 +22,12 @@ namespace Entities
 
         private void Awake()
         {
-            _entityKilledEvent = new EntityKilledEvent(transform);
             health.Value = maxHealth.Value;
         }
 
-        private void Die()
+        public void Die(bool killReg = true)
         {
-            EventManager.Instance.Raise(_entityKilledEvent);
+            EventManager.Instance.Raise(new EntityKilledEvent(transform, killReg));
         }
 
         private void TakeDamage(int amount)

@@ -132,7 +132,7 @@ namespace EnemySystem
         {
             if (_enemies.ContainsKey(e.Transform))
             {
-                DestroyEnemy(e.Transform, e.KillCount);
+                DestroyEnemy(e.Transform, e.KillReg);
             }
         }
 

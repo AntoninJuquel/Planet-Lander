@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 144;
         MainMenu();
     }
 
