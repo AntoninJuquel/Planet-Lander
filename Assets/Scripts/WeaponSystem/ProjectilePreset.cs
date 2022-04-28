@@ -10,12 +10,13 @@ namespace WeaponSystem
         public Color color;
         public float gravity;
         public Gradient colorOverLifetime;
-        public SubEmitter[] subEmitters;
+        public SubEmitter[] subEmitters = { };
     }
 
     [System.Serializable]
     public struct SubEmitter
     {
+        public bool collision;
         public float rateOverTime, rateOverDistance, burstCount;
 
         public float speed;

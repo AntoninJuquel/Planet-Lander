@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MessagingSystem;
 using UnityEngine;
 
 namespace WeaponSystem
@@ -19,7 +20,7 @@ namespace WeaponSystem
             for (var i = 0; i < events; i++)
             {
                 Debug.Log("Sub Hit " + other.name);
-                //EventHandler.Instance.Raise(new ProjectileHitEvent(other.transform, CurrentWeapon.damage));
+                EventManager.Instance.Raise(new ProjectileHitEvent(other.transform, 1));
             }
         }
     }

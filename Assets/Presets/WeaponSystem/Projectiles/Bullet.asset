@@ -46,7 +46,8 @@ MonoBehaviour:
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
   subEmitters:
-  - rateOverTime: 0
+  - collision: 0
+    rateOverTime: 0
     rateOverDistance: 0
     burstCount: 30
     speed: 0

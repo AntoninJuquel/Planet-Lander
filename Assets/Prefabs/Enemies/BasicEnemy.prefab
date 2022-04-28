@@ -71,6 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 7
   range: 15
+  attackTime: 5
 --- !u!212 &7138307105026602177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -90,7 +91,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,6 +204,34 @@ PrefabInstance:
       propertyPath: weapons.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: e60c5af5a2bfa494e802d7d3b20b797e, type: 2}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: CollisionModule.collisionMessages
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 80ec0ba795e31f44ebf3bd6fcba1ab02, type: 3}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].repeatInterval
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5866777019467429550, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: m_Name
       value: Weapon
@@ -252,13 +281,58 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: SubModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: ColorModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: ShapeModule.arc.value
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
       propertyPath: ShapeModule.m_Position.y
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: ShapeModule.m_Rotation.z
+      value: 88.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: UVModule.sprites.Array.data[0].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 80ec0ba795e31f44ebf3bd6fcba1ab02, type: 3}
+    - target: {fileID: 7582377738166839567, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+      propertyPath: SubModule.subEmitters.Array.data[0].emitter
+      value: 
+      objectReference: {fileID: 2073225199828110944}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
 --- !u!4 &6304822613260750959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7170468702547909818, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
+  m_PrefabInstance: {fileID: 3818390064680750293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2073225199828110944 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2898126686451778229, guid: fcbd097b7c78e714d9bd72133ac64b09, type: 3}
   m_PrefabInstance: {fileID: 3818390064680750293}
   m_PrefabAsset: {fileID: 0}

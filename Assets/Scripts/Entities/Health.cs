@@ -25,6 +25,12 @@ namespace Entities
             health.Value = maxHealth.Value;
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Health")) return;
+            health.Value = maxHealth.Value;
+        }
+
         public void Die(bool killReg = true)
         {
             EventManager.Instance.Raise(new EntityKilledEvent(transform, killReg));

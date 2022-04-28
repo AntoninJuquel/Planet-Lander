@@ -15,21 +15,24 @@ MonoBehaviour:
   damage: 1
   burst: 1
   bulletPerBurst: 1
-  firePoints:
-  - position: {x: 0, y: -0.5}
-    angle: 180
   automatic: 1
   criticalChance: 0
   criticalDamage: 0
+  firePoints:
+  - position: {x: 0, y: -0.5}
+    angle: 180
+    thickness: 0
+    spread: 1
+    radius: 1
+    arcMode: 0
+    projectile: {fileID: 11400000, guid: f9ad607f34635f6458b20959ef30fddd, type: 2}
+    projectileSpeed: 0.1
+    projectileRange: 10
   fireRate: 60
-  burstRate: 0
+  burstRate: 1000
   reloadTime: 3
   chargeTime: 0
   switchSpeed: 0
   magazine: 1
   capacity: 1
-  projectile: {fileID: 11400000, guid: f9ad607f34635f6458b20959ef30fddd, type: 2}
-  projectileSpeed: 0.1
-  projectileRange: 1
-  accuracy: 0.95
   state: 0

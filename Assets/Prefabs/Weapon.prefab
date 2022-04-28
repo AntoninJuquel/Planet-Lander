@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7582931182513374239}
   - component: {fileID: 2898126686451778229}
   - component: {fileID: 8816120162400027771}
+  - component: {fileID: 774603669728352064}
   m_Layer: 0
   m_Name: SubEmitter
   m_TagString: Untagged
@@ -4862,6 +4863,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &774603669728352064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330640993534569691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4cda7fdd8be1144da4f0e403278c22b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5866777019467429550
 GameObject:
   m_ObjectHideFlags: 0
@@ -4911,6 +4924,18 @@ MonoBehaviour:
   weapons:
   - {fileID: 11400000, guid: 57c22b42a3b6d0a4b9d3584739273fd5, type: 2}
   subEmitter: {fileID: 2898126686451778229}
+  shots:
+    useConstant: 1
+    constantValue: 0
+    Variable: {fileID: 0}
+  hits:
+    useConstant: 1
+    constantValue: 0
+    Variable: {fileID: 0}
+  accuracy:
+    useConstant: 1
+    constantValue: 0
+    Variable: {fileID: 0}
 --- !u!198 &7582377738166839567
 ParticleSystem:
   m_ObjectHideFlags: 0

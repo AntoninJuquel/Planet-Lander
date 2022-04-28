@@ -3,61 +3,6 @@ using MessagingSystem;
 using ReferenceSharing;
 using UnityEngine;
 
-[System.Serializable]
-internal struct OneShotAudio
-{
-    [SerializeField] private AudioClip[] clips;
-    [SerializeField] private AudioSource source;
-    [SerializeField] [Range(0, 1)] private float scale;
-    [SerializeField] private bool music;
-
-    public void Play()
-    {
-        Play(Random.Range(0, clips.Length));
-    }
-
-    public void Play(int index)
-    {
-        index %= clips.Length;
-        if (music)
-            AudioManager.PlayOneShotMusic(source, clips[index], scale);
-        else
-            AudioManager.PlayOneShotSound(source, clips[index], scale);
-    }
-}
-
-[System.Serializable]
-internal struct LoopingAudio
-{
-    [SerializeField] private AudioSource[] sources;
-    [SerializeField] [Range(0, 1)] private float scale;
-    [SerializeField] private bool music;
-    private int _playingIndex;
-
-    public void Play()
-    {
-        Play(Random.Range(0, sources.Length));
-    }
-
-    public void Play(int index)
-    {
-        index %= sources.Length;
-        _playingIndex = index;
-        if (music)
-            AudioManager.PlayLoopingMusic(sources[index], scale);
-        else
-            AudioManager.PlayLoopingSound(sources[index], scale);
-    }
-
-    public void Stop()
-    {
-        if (music)
-            AudioManager.StopLoopingMusic(sources[_playingIndex]);
-        else
-            AudioManager.StopLoopingSound(sources[_playingIndex]);
-    }
-}
-
 public class SoundManager : MonoBehaviour
 {
     #region Serialize Fields
@@ -68,7 +13,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private OneShotAudio weaponShotAudio, projectileHitAudio, entityKilledAudio, spaceshipCrashedAudio, jingleAudio;
 
     #endregion
-    
+
     #region Unity Methods
 
     private void OnEnable()
@@ -81,6 +26,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.AddListener<EntityKilledEvent>(EntityKilledHandler);
         EventManager.Instance.AddListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
         EventManager.Instance.AddListener<TogglePauseEvent>(TogglePauseHandler);
+        EventManager.Instance.AddListener<NewWaveEvent>(NewWaveHandler);
     }
 
     private void OnDisable()
@@ -93,6 +39,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.RemoveListener<EntityKilledEvent>(EntityKilledHandler);
         EventManager.Instance.RemoveListener<SpaceshipCrashedEvent>(SpaceshipCrashedHandler);
         EventManager.Instance.RemoveListener<TogglePauseEvent>(TogglePauseHandler);
+        EventManager.Instance.RemoveListener<NewWaveEvent>(NewWaveHandler);
     }
 
     private void Awake()
@@ -164,6 +111,14 @@ public class SoundManager : MonoBehaviour
     private void SpaceshipCrashedHandler(SpaceshipCrashedEvent e)
     {
         spaceshipCrashedAudio.Play();
+    }
+
+    private void NewWaveHandler(NewWaveEvent e)
+    {
+        if (e.LastWave)
+        {
+            musicAudio.Play(4);
+        }
     }
 
     #endregion

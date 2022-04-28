@@ -13,10 +13,32 @@ MonoBehaviour:
   m_Name: Mars
   m_EditorClassIdentifier: 
   waves:
-  - enemyNumber: 1
-    spawnRate: 0.5
+  - enemyNumber: 3
+    timeDelay: 3
+    waitTime: 0
+    spawnRate: 3
     enemies:
     - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
-    timeDelay: 0
-    waitKill: 0
+    waitKill: 1
+  - enemyNumber: 10
+    timeDelay: 5
     waitTime: 0
+    spawnRate: 0.5
+    enemies:
+    - {fileID: -3932421257514318504, guid: 861735e98a3504541b517622f59507dd, type: 3}
+    - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
+    waitKill: 1
+  - enemyNumber: 3
+    timeDelay: 3
+    waitTime: 0
+    spawnRate: 1
+    enemies:
+    - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
+    waitKill: 0
+  - enemyNumber: 3
+    timeDelay: 0
+    waitTime: 0
+    spawnRate: 3
+    enemies:
+    - {fileID: -3932421257514318504, guid: 861735e98a3504541b517622f59507dd, type: 3}
+    waitKill: 1

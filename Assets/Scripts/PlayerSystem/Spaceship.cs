@@ -7,7 +7,7 @@ namespace PlayerSystem
     public class Spaceship : MonoBehaviour
     {
         [SerializeField] private float forceSpeed, torqueSpeed, crashSpeed, maxSpeed, burnRate;
-        [SerializeField] private Reference<float> fuelRef, fuelBurntRef, speedRef, altitudeRef, forceInputRef, torqueInputRef;
+        [SerializeField] private Reference<float> fuelRef, fuelBurntRef, speedRef, altitudeRef, forceInputRef, torqueInputRef, maxFuelRef;
         [SerializeField] private Reference<bool> landed, hasFuel;
         private Rigidbody2D _rb;
         private SpaceshipLandedEvent _spaceshipLandedEvent;
@@ -71,6 +71,12 @@ namespace PlayerSystem
             if (landed.Value || _rb.velocity != Vector2.zero) return;
             landed.Value = true;
             EventManager.Instance.Raise(_spaceshipLandedEvent);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.CompareTag("Fuel")) return;
+            fuelRef.Value = maxFuelRef.Value;
         }
     }
 }

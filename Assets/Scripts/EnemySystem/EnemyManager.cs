@@ -87,7 +87,7 @@ namespace EnemySystem
             {
                 waveNumber.Value++;
                 killToConfirmWave += wave.enemyNumber;
-                EventManager.Instance.Raise(new NewWaveEvent(wave.timeDelay));
+                EventManager.Instance.Raise(new NewWaveEvent(wave.timeDelay, waveNumber.Value == wavePreset.waves.Length));
                 yield return new WaitForSeconds(wave.timeDelay);
 
                 for (var i = 0; i < wave.enemyNumber; i++)

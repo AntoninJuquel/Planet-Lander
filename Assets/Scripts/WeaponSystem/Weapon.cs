@@ -27,6 +27,16 @@ namespace WeaponSystem
             }
         }
 
+        private void OnDrawGizmos()
+        {
+            if (weapons.Count == 0) return;
+            _ps = GetComponent<ParticleSystem>();
+            foreach (var firePoint in CurrentWeapon.firePoints)
+            {
+                AdjustParticles(firePoint);
+            }
+        }
+
         private void OnParticleCollision(GameObject other)
         {
             var events = _ps.GetCollisionEvents(other, _collisionEvents);
@@ -111,8 +121,8 @@ namespace WeaponSystem
                     yield return new WaitForSeconds(60 / CurrentWeapon.fireRate);
                     break;
                 case State.WaitingBtnUp:
-                    if (Input.GetMouseButton(0))
-                        yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
+                    // if (Input.GetMouseButton(0))
+                    //     yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
                     break;
                 case State.Reloading:
                     yield return ReloadRoutine();
@@ -126,26 +136,28 @@ namespace WeaponSystem
         private void AdjustParticles(FirePoint firePoint)
         {
             var main = _ps.main;
-            main.startLifetimeMultiplier = CurrentWeapon.projectileRange / CurrentWeapon.projectileSpeed;
-            main.startSpeedMultiplier = CurrentWeapon.projectileSpeed;
-            main.startSizeMultiplier = CurrentWeapon.projectile.size;
-            main.startColor = CurrentWeapon.projectile.color;
-            main.gravityModifierMultiplier = CurrentWeapon.projectile.gravity;
+            main.startLifetimeMultiplier = firePoint.projectileRange / firePoint.projectileSpeed;
+            main.startSpeedMultiplier = firePoint.projectileSpeed;
+            main.startSizeMultiplier = firePoint.projectile.size;
+            main.startColor = firePoint.projectile.color;
+            main.gravityModifierMultiplier = firePoint.projectile.gravity;
 
             var shape = _ps.shape;
-            shape.arc = (1 - CurrentWeapon.accuracy) * 360f;
+            shape.arc = firePoint.spread;
+            shape.radiusThickness = firePoint.thickness;
+            shape.arcMode = firePoint.arcMode;
             shape.position = firePoint.position;
             shape.rotation = Vector3.forward * (90f + (firePoint.angle - shape.arc * .5f));
-            shape.radiusThickness = .1f;
+            shape.radius = firePoint.radius;
 
             var textureSheet = _ps.textureSheetAnimation;
-            textureSheet.SetSprite(0, CurrentWeapon.projectile.sprite);
+            textureSheet.SetSprite(0, firePoint.projectile.sprite);
 
             var colorOverLifetime = _ps.colorOverLifetime;
-            if (CurrentWeapon.projectile.colorOverLifetime.alphaKeys.Length > 0 || CurrentWeapon.projectile.colorOverLifetime.colorKeys.Length > 0)
+            if (firePoint.projectile.colorOverLifetime.alphaKeys.Length > 0 || firePoint.projectile.colorOverLifetime.colorKeys.Length > 0)
             {
                 colorOverLifetime.enabled = true;
-                colorOverLifetime.color = CurrentWeapon.projectile.colorOverLifetime;
+                colorOverLifetime.color = firePoint.projectile.colorOverLifetime;
             }
             else
             {
@@ -153,12 +165,12 @@ namespace WeaponSystem
             }
 
             var subEmitters = _ps.subEmitters;
-            if (CurrentWeapon.projectile.subEmitters.Length > 0)
+            if (firePoint.projectile.subEmitters.Length > 0)
             {
                 subEmitters.enabled = true;
-                for (var i = 0; i < CurrentWeapon.projectile.subEmitters.Length; i++)
+                for (var i = 0; i < firePoint.projectile.subEmitters.Length; i++)
                 {
-                    var subEmitterStruct = CurrentWeapon.projectile.subEmitters[i];
+                    var subEmitterStruct = firePoint.projectile.subEmitters[i];
                     ParticleSystem subPs;
                     if (subEmitters.subEmittersCount > i)
                         subPs = subEmitters.GetSubEmitterSystem(i);
@@ -193,6 +205,9 @@ namespace WeaponSystem
                     {
                         subColorOverLifetime.enabled = false;
                     }
+
+                    var collision = subPs.collision;
+                    collision.sendCollisionMessages = subEmitterStruct.collision;
                 }
             }
             else
@@ -222,27 +237,9 @@ namespace WeaponSystem
         public void SwitchWeapon(int delta)
         {
             StopAllCoroutines();
-            StartCoroutine(SwitchRoutine(delta));
-        }
-
-        public void AddWeapon(WeaponPreset weaponPreset)
-        {
-            if (weaponPreset == null) return;
-            weapons.Add(Instantiate(weaponPreset));
-            SwitchWeapon(1);
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (weapons.Count == 0) return;
-            _ps = GetComponent<ParticleSystem>();
-            foreach (var firePoint in CurrentWeapon.firePoints)
-            {
-                var shape = _ps.shape;
-                shape.arc = (1 - CurrentWeapon.accuracy) * 360f;
-                shape.position = firePoint.position;
-                shape.rotation = Vector3.forward * (90f + (firePoint.angle - shape.arc * .5f));
-            }
+            //StartCoroutine(SwitchRoutine(delta));
+            _index = Mathf.Clamp(_index + 1, 0, weapons.Count - 1);
+            CurrentWeapon.state = State.ReadyToShoot;
         }
     }
 }

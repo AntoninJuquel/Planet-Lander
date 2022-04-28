@@ -10,26 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c35af5c89b234df381b1b6ac1d9dcd57, type: 3}
-  m_Name: Gun
+  m_Name: Special
   m_EditorClassIdentifier: 
   damage: 1
   burst: 1
-  bulletPerBurst: 1
-  firePoints:
-  - position: {x: 0, y: 0.1}
-    angle: 0
+  bulletPerBurst: 100
   automatic: 1
   criticalChance: 0
   criticalDamage: 0
-  fireRate: 500
+  firePoints:
+  - position: {x: 0, y: 0}
+    angle: 0
+    thickness: 0
+    spread: 360
+    radius: 3
+    arcMode: 3
+    projectile: {fileID: 11400000, guid: 113b43cc3ed3ee749abfa41885ae2eb6, type: 2}
+    projectileSpeed: 20
+    projectileRange: 20
+  fireRate: 12
   burstRate: 1000
-  reloadTime: 0.12
+  reloadTime: 5
   chargeTime: 0
   switchSpeed: 0
   magazine: 10
   capacity: 10
-  projectile: {fileID: 11400000, guid: 113b43cc3ed3ee749abfa41885ae2eb6, type: 2}
-  projectileSpeed: 50
-  projectileRange: 20
-  accuracy: 0.99
   state: 0

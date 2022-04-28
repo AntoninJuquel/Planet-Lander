@@ -9,11 +9,12 @@ namespace WeaponSystem
         [Header("Attack")] public int damage;
         public int burst;
         public int bulletPerBurst;
-        public List<FirePoint> firePoints = new List<FirePoint>();
         public bool automatic;
         public float criticalChance;
         public int criticalDamage;
 
+        public List<FirePoint> firePoints = new List<FirePoint>();
+        
         [Header("Speed")] public float fireRate;
         public float burstRate;
         public float reloadTime;
@@ -22,12 +23,7 @@ namespace WeaponSystem
 
         [Header("Ammo")] public int magazine;
         public int capacity;
-
-        [Header("Projectile")] public ProjectilePreset projectile;
-        public float projectileSpeed;
-        public float projectileRange;
-        public float accuracy;
-
+        
         public State state;
     }
 
@@ -46,5 +42,13 @@ namespace WeaponSystem
     {
         public Vector2 position;
         public float angle;
+        [Range(0f, 1f)] public float thickness;
+        [Range(0f, 360f)] public float spread;
+        public float radius;
+        public ParticleSystemShapeMultiModeValue arcMode;
+        
+        [Header("Projectile")] public ProjectilePreset projectile;
+        public float projectileSpeed;
+        public float projectileRange;
     }
 }

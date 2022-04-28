@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Fuel
+  - Health
+  - World
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -39,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1990498795
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

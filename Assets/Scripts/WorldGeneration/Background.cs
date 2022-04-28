@@ -7,11 +7,11 @@ namespace WorldGeneration
     public class Background : MonoBehaviour
     {
         [SerializeField] private Reference<int> levelRef;
-        [SerializeField] private WorldPreset[] _worldPresets;
+        [SerializeField] private WorldPreset[] worldPresets;
         [SerializeField] private float scrollSpeed;
         private Material _material;
         private Vector3 _offset;
-        private WorldPreset CurrentWorldPreset => _worldPresets[levelRef.Value % _worldPresets.Length];
+        private WorldPreset CurrentWorldPreset => worldPresets[levelRef.Value % worldPresets.Length];
 
         private void OnEnable()
         {

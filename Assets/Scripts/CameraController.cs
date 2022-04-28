@@ -1,11 +1,13 @@
 using System.Collections;
 using MessagingSystem;
+using ReferenceSharing;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [SerializeField] private Reference<Vector3> offsetRef;
     [SerializeField] private Vector3 offset;
-    [SerializeField] private float smoothTime;
+    [SerializeField] private float smoothTime, range;
     private Transform _target;
     private Vector3 _camVelocity;
     private Coroutine _followTargetRoutine;
@@ -37,7 +39,7 @@ public class CameraController : MonoBehaviour
     {
         while (_target)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, _target.position + offset, ref _camVelocity, smoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, _target.position + offset + (offsetRef.Value * range), ref _camVelocity, smoothTime);
             yield return _fixedUpdate;
         }
     }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Reference<int> level, scoreRef, bestScoreRef;
     [SerializeField] private Reference<float> timer;
     [SerializeField] private Reference<bool> landed, levelCleared, hasLife, hasFuel;
+    [SerializeField] private int levelNumber;
     [SerializeField] private GameState state;
 
     [SerializeField] private Score score;
@@ -127,7 +128,10 @@ public class GameManager : MonoBehaviour
     public void NextGame()
     {
         level.Value++;
-        StartGame();
+        if (level.Value == levelNumber)
+            MainMenu();
+        else
+            StartGame();
     }
 
     public void RestartGame()
