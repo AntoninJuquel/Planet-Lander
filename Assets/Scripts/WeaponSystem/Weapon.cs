@@ -212,7 +212,7 @@ namespace WeaponSystem
             }
             else
             {
-                subEmitters.enabled = true;
+                subEmitters.enabled = false;
             }
         }
 
