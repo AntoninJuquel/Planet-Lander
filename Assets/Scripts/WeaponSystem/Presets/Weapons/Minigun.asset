@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc13d65108248e5ba02d4d5f9970837, type: 3}
+  m_Name: Minigun
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  damage: 0
+  state: 0
+  barrels:
+  - barrel: {fileID: 11400000, guid: 091df3b183517e44fbe8ae803675e590, type: 2}
+    position: {x: 0, y: 0, z: 0}
+    angle: 0
+    emissionCount: 1
+    radius: 1
+  ammunition: {fileID: 11400000, guid: 9df49b2f3f4f69043a163d0555da7b08, type: 2}
+  muzzleFlash: {fileID: 11400000, guid: b82720f8ef725b045b0c1c9807e59ce9, type: 2}
+  fireModes:
+  - {fileID: 11400000, guid: e119bbaff2f4f024c8bddcce88979f81, type: 2}
+  fireModeIndex: 0
+  fireRate: 4000
+  burstRate: 0
+  reloadTime: 1.9
+  chargeTime: 0
+  heat: 0
+  heatCapacity: 750
+  heatPerShot: 1
+  heatRecoveryRate: 100
+  heatRecoveryDelay: 3
+  magazine: 1000
+  capacity: 1000
+  lastTimeHeld: 0

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d43ad00f5b683ec4b9ab78b788e2ecb2, type: 3}
+  m_Name: Mars
+  m_EditorClassIdentifier: 
+  waves:
+  - enemyNumber: 3
+    timeDelay: 3
+    waitTime: 0
+    spawnRate: 3
+    enemies:
+    - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
+    waitKill: 1
+  - enemyNumber: 10
+    timeDelay: 5
+    waitTime: 0
+    spawnRate: 0.5
+    enemies:
+    - {fileID: -3932421257514318504, guid: 861735e98a3504541b517622f59507dd, type: 3}
+    - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
+    waitKill: 1
+  - enemyNumber: 3
+    timeDelay: 3
+    waitTime: 0
+    spawnRate: 1
+    enemies:
+    - {fileID: -8905204130762834523, guid: 2a9f0293de043524bb95057ae6c1fd45, type: 3}
+    waitKill: 0
+  - enemyNumber: 3
+    timeDelay: 0
+    waitTime: 0
+    spawnRate: 3
+    enemies:
+    - {fileID: -3932421257514318504, guid: 861735e98a3504541b517622f59507dd, type: 3}
+    waitKill: 1

@@ -1,9 +1,16 @@
 ﻿using System.Collections.Generic;
-using GameUtilities;
 using UnityEngine;
 
 namespace WorldGeneration
 {
+    public static class Convert
+    {
+        public static Vector3[] Vector2ArrayToVector3Array(this Vector2[] vector2) => System.Array.ConvertAll(vector2, v2 => new Vector3(v2.x, v2.y));
+        public static Vector2[] Vector3ArrayToVector2Array(this Vector3[] vector3) => System.Array.ConvertAll(vector3, v3 => new Vector2(v3.x, v3.y));
+    }
+
+    [RequireComponent(typeof(EdgeCollider2D))]
+    [RequireComponent(typeof(LineRenderer))]
     public class WorldPart : MonoBehaviour
     {
         private EdgeCollider2D _col;
@@ -15,22 +22,17 @@ namespace WorldGeneration
             _lr = GetComponent<LineRenderer>();
         }
 
-        public void Generate(WorldPreset worldPreset)
-        {
-            Generate(worldPreset, _lr.GetPosition(0).x, _lr.GetPosition(_lr.positionCount - 1).x);
-        }
-
-        public void Generate(WorldPreset worldPreset, float startX, float endX)
+        public void Generate(World world, float startX, float endX)
         {
             var points = new List<Vector2>();
             points.Add(new Vector2(startX, 0));
 
-            for (var x = startX + Random.Range(worldPreset.step.x, worldPreset.step.y); x < endX; x += Random.Range(worldPreset.step.x, worldPreset.step.y))
+            for (var x = startX + Random.Range(world.step.x, world.step.y); x < endX; x += Random.Range(world.step.x, world.step.y))
             {
-                var y = Random.Range(worldPreset.height.x, worldPreset.height.y);
+                var y = Random.Range(world.height.x, world.height.y);
                 points.Add(new Vector2(x, y));
 
-                foreach (var worldDeformation in worldPreset.worldDeformations)
+                foreach (var worldDeformation in world.worldDeformations)
                 {
                     if (Random.value <= worldDeformation.chance)
                         AddDeformation(ref x, y, points, worldDeformation, endX);
@@ -40,7 +42,7 @@ namespace WorldGeneration
             points.Add(new Vector2(endX, 0));
 
             _lr.positionCount = points.Count;
-            _lr.SetPositions(Convert.Vector2ArrayToVector3Array(points.ToArray()));
+            _lr.SetPositions(points.ToArray().Vector2ArrayToVector3Array());
             _col.points = points.ToArray();
         }
 

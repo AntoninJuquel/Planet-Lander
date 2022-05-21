@@ -4,16 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - Fuel
   - Health
+  - Fuel
   - World
-  - Weapon
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ignore Collision
+  - 
   - Water
   - UI
   - 
@@ -44,11 +42,11 @@ TagManager:
   - 
   m_SortingLayers:
   - name: Background
-    uniqueID: 1990498795
+    uniqueID: 3550321167
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: UI
-    uniqueID: 1449803959
+    uniqueID: 4253438163
     locked: 0

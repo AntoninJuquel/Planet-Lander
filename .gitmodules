@@ -1,18 +1,15 @@
-[submodule "Assets/Scripts/Managers"]
-	path = Assets/Scripts/Managers
-	url = https://github.com/AntoninJuquel/Managers
-[submodule "Assets/Scripts/GameUtilities"]
-	path = Assets/Scripts/GameUtilities
-	url = https://github.com/AntoninJuquel/GameUtilities
-[submodule "Assets/Scripts/ReferenceSharing"]
+[submodule "WeaponSystem"]
+	path = Assets/Scripts/WeaponSystem
+	url = https://github.com/AntoninJuquel/WeaponSystem
+[submodule "ReferenceSharing"]
 	path = Assets/Scripts/ReferenceSharing
 	url = https://github.com/AntoninJuquel/ReferenceSharing
-[submodule "Assets/Scripts/MessagingSystem"]
-	path = Assets/Scripts/MessagingSystem
-	url = https://github.com/AntoninJuquel/MessagingSystem
-[submodule "Assets/Scripts/ScreenNavigation"]
+[submodule "ScreenNavigation"]
 	path = Assets/Scripts/ScreenNavigation
 	url = https://github.com/AntoninJuquel/ScreenNavigation
-[submodule "Assets/Scripts/AudioSystem"]
-	path = Assets/Scripts/AudioSystem
-	url = https://github.com/AntoninJuquel/AudioSystem
+[submodule "MessagingSystem"]
+	path = Assets/Scripts/MessagingSystem
+	url = https://github.com/AntoninJuquel/MessagingSystem
+[submodule "ChunkSystem"]
+	path = Assets/Scripts/ChunkSystem
+	url = https://github.com/AntoninJuquel/ChunkSystem
